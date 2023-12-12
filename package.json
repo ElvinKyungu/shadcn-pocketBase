@@ -14,6 +14,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-vue-next": "^0.294.0",
+    "pinia": "^2.1.7",
     "pocketbase": "^0.20.0",
     "radix-vue": "^1.2.4",
     "tailwind-merge": "^2.1.0",

@@ -89,8 +89,10 @@ import Spinner from '@/components/Spinner.vue';
 import PocketBase from 'pocketbase';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/store';
 
 const router = useRouter()
+const userStore = useUserStore();
 
 interface User {
   mail: string | null;
@@ -117,6 +119,8 @@ const loginUser = async () => {
     );
     console.log(result);
     message.value = 'Connecté avec succès!';
+    
+    userStore.setUserData({ name: result.record.name, token: result.token });
     router.push('/user')
   } catch (error) {
     isLogin.value = false; 
