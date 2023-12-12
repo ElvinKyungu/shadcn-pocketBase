@@ -1,5 +1,5 @@
 <template>
-    <h1>Welcome to user page</h1>
+    <h1>Welcome to user page!!!</h1>
 </template>
 <script lang="ts" setup>
 
