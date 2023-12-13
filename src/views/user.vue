@@ -1,12 +1,16 @@
 <template>
-  <h1>Bienvenue, {{ userStore.name }}!</h1>
-  <button @click="logoutUser">Déconnexion</button>
+  <div>
+    <h1>Bienvenue, {{ userStore.name }}!</h1>
+    <button @click="logoutUser">Déconnexion</button>
+    <DataTable/>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { onMounted } from 'vue';
 import { useUserStore } from '@/stores/store';
 import { useRouter } from 'vue-router'
+import DataTable from '@/components/tasks/DataTable.vue'
 
 const userStore = useUserStore();
 const router = useRouter();
