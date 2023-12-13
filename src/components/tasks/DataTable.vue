@@ -10,48 +10,20 @@ import {
 } from '@/components/ui/table'
 import { Checkbox } from '@/components/ui/checkbox'
 
-const invoices = [
+const tasks = [
   {
-    invoice: 'INV001',
+    id: 1,
+    name: 'Lire la documentaion de vuejs',
     paymentStatus: 'Paid',
     totalAmount: '$250.00',
     paymentMethod: 'Credit Card',
   },
   {
-    invoice: 'INV002',
-    paymentStatus: 'Pending',
+    id: 2,
+    name: 'Travailler sur Shadcn + PocketBase',
+    taskStatus: 'Pending',
     totalAmount: '$150.00',
     paymentMethod: 'PayPal',
-  },
-  {
-    invoice: 'INV003',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$350.00',
-    paymentMethod: 'Bank Transfer',
-  },
-  {
-    invoice: 'INV004',
-    paymentStatus: 'Paid',
-    totalAmount: '$450.00',
-    paymentMethod: 'Credit Card',
-  },
-  {
-    invoice: 'INV005',
-    paymentStatus: 'Paid',
-    totalAmount: '$550.00',
-    paymentMethod: 'PayPal',
-  },
-  {
-    invoice: 'INV006',
-    paymentStatus: 'Pending',
-    totalAmount: '$200.00',
-    paymentMethod: 'Bank Transfer',
-  },
-  {
-    invoice: 'INV007',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$300.00',
-    paymentMethod: 'Credit Card',
   },
 ]
 </script>
@@ -59,12 +31,17 @@ const invoices = [
 <template>
   <Table>
     <TableCaption>A list of your recent invoices.</TableCaption>
-    <TableHeader>
-      <TableRow>
-        <TableHead class="w-[100px]">
-          Invoice
+    <TableHeader class=" ">
+      <TableRow class="">
+        <TableHead class="w-full">
+          Terminer
         </TableHead>
-        <TableHead>Status</TableHead>
+        <TableHead class="w-full">
+          Tâches
+        </TableHead>
+        <TableHead>
+          Status
+        </TableHead>
         <TableHead>Method</TableHead>
         <TableHead class="text-right">
           Amount
@@ -73,17 +50,24 @@ const invoices = [
     </TableHeader>
     <TableBody>
       <TableRow 
-        v-for="invoice in invoices" 
-        :key="invoice.invoice"
+        class=""
+        v-for="task in tasks" 
+        :key="task.id"
       >
-        <Checkbox id="terms" class="p-2"/>
         <TableCell class="font-medium">
-          {{ invoice.invoice }}
+          <Checkbox id="terms" class="p-2"/>
         </TableCell>
-        <TableCell>{{ invoice.paymentStatus }}</TableCell>
-        <TableCell>{{ invoice.paymentMethod }}</TableCell>
-        <TableCell class="text-right">
-          {{ invoice.totalAmount }}
+        <TableCell class="font-medium">
+          {{ task.name }}
+        </TableCell>
+        <TableCell class="">
+          {{ task.taskStatus }}
+        </TableCell>
+        <TableCell class=" text-left">
+          {{ task.taskStatus }}
+        </TableCell>
+        <TableCell class="">
+          {{ task.taskStatus }}
         </TableCell>
       </TableRow>
     </TableBody>
