@@ -2,7 +2,6 @@
   <div>
     <Header/>
     <h1>Bienvenue, {{ userStore.name }}!</h1>
-    <button @click="logoutUser" class="bg-transparent">Déconnexion</button>
     <Index/>
     
   </div>

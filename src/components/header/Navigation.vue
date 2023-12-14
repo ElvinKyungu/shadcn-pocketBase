@@ -11,8 +11,18 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from 'radix-vue'
-
+import { Button } from '@/components/ui/button'
 import NavigationMenuListItem from './NavigationMenuListItem.vue'
+import { useUserStore } from '@/stores/store';
+import { useRouter } from 'vue-router'
+
+const userStore = useUserStore();
+const router = useRouter();
+
+const logoutUser = () => {
+  userStore.clearUserData();
+  router.push('/'); 
+}
 
 const currentTrigger = ref('')
 </script>
@@ -132,19 +142,18 @@ const currentTrigger = ref('')
       </NavigationMenuItem>
 
       <NavigationMenuItem>
-        <NavigationMenuLink
+        <Button 
+          @click="logoutUser" 
           class="
-            text-grass11 hover:bg-green3 
-            focus:shadow-green7 block select-none 
-            rounded-[4px] px-3 py-2 text-[15px] 
-            font-medium leading-none no-underline 
-            outline-none focus:shadow-[0_0_0_2px]
-            text-black
+            text-grass11 hover:bg-green3 focus:shadow-green7 
+            group flex select-none items-center justify-between 
+            gap-[2px] rounded-[4px] px-3 py-6 text-[15px] 
+            font-medium leading-none outline-none 
+            focus:shadow-[0_0_0_2px] text-black bg-transparent border border-gray-400
           "
-          href="#"
         >
-          Github
-        </NavigationMenuLink>
+          Déconnexion
+        </Button>
       </NavigationMenuItem>
 
       <NavigationMenuIndicator
