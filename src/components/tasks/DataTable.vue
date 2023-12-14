@@ -30,46 +30,6 @@ const tasks = [
 
 <template>
   <Table>
-    <TableCaption>A list of your recent invoices.</TableCaption>
-    <TableHeader class=" ">
-      <TableRow class="">
-        <TableHead class="w-full">
-          Terminer
-        </TableHead>
-        <TableHead class="w-full">
-          Tâches
-        </TableHead>
-        <TableHead>
-          Status
-        </TableHead>
-        <TableHead>Method</TableHead>
-        <TableHead class="text-right">
-          Amount
-        </TableHead>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      <TableRow 
-        class=""
-        v-for="task in tasks" 
-        :key="task.id"
-      >
-        <TableCell class="font-medium">
-          <Checkbox id="terms" class="p-2"/>
-        </TableCell>
-        <TableCell class="font-medium">
-          {{ task.name }}
-        </TableCell>
-        <TableCell class="">
-          {{ task.taskStatus }}
-        </TableCell>
-        <TableCell class=" text-left">
-          {{ task.taskStatus }}
-        </TableCell>
-        <TableCell class="">
-          {{ task.taskStatus }}
-        </TableCell>
-      </TableRow>
-    </TableBody>
+    
   </Table>
 </template>

@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { columns } from "@/components/tasks/columns"
 import type { Payment } from '@/components/tasks/columns';
 import DataTable from "@/components/tasks/DataTable.vue"
+import Form from "@/components/tasks/Form.vue"
 
 const data = ref<Payment[]>([])
 
@@ -26,6 +27,7 @@ onMounted(async () => {
 
 <template>
   <div class="container py-10 mx-auto">
+    <Form/>
     <DataTable :columns="columns" :data="data" />
   </div>
 </template>

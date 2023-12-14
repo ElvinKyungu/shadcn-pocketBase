@@ -2,8 +2,9 @@
   <div>
     <Header/>
     <h1>Bienvenue, {{ userStore.name }}!</h1>
-    <button @click="logoutUser">Déconnexion</button>
-    <DataTable/>
+    <button @click="logoutUser" class="bg-transparent">Déconnexion</button>
+    <Index/>
+    
   </div>
 </template>
 
@@ -11,7 +12,7 @@
 import { onMounted } from 'vue';
 import { useUserStore } from '@/stores/store';
 import { useRouter } from 'vue-router'
-import DataTable from '@/components/tasks/DataTable.vue'
+import Index from '@/components/tasks/Index.vue'
 import Header from '@/components/header/Index.vue'
 
 const userStore = useUserStore();
