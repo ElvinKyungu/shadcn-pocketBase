@@ -48,8 +48,7 @@ const newTask = ref({
   updatedAt: null,
 });
 const addTask = async()=>{
-  console.log(userStore.$state.id);
-  newTask.value.userID = userID;
+  newTask.value.userID = userStore.$state.id;
   try{
     const record = await pb.collection('tasks').create(newTask.value);
     console.log(record);
