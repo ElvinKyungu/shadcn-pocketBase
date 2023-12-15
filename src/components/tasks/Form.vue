@@ -18,7 +18,7 @@ const pb = new PocketBase('https://bat-her.pockethost.io');
 
 console.log(pb);
 
-onMounted(async()=>{
+onMounted(async() => {
   try {
     const records = await pb.collection('tasks').getFullList({
       sort: '-created',
@@ -39,19 +39,37 @@ const form = useForm({
   validationSchema: formSchema,
 })
 
-const onSubmit = form.handleSubmit((values) => {
-  console.log('Form submitted!', values)
-})
+const data = {
+    "name": "Je veux ce truc à tout prix",
+    "status": "done",
+    "updatedAt": " 2022-01-01 10:00:00.123Z",
+    "userID": "4w3769t9z89ff0p"
+};
+const addTask = async()=>{
+  try{
+    const record = await pb.collection('tasks').create(data);
+    console.log(record);
+    
+  }catch (error){
+    console.log("Une erreur s'est produite "+ error);
+    
+  }
+  
+}
 </script>
 
 <template>
-  <form @submit="onSubmit" class="flex flex-col gap-5">
+  <form @submit.prevent="addTask" class="flex flex-col gap-5">
     <FormField v-slot="{ componentField }" name="username">
       <FormItem class="flex flex-col gap-1">
         <div>
           <FormLabel class="mb-3 text-lg">Task name</FormLabel>
           <FormControl>
-            <Input class="p-7 text-lg" type="text" placeholder="Ajouter une tâche..." v-bind="componentField" />
+            <Input 
+              v-model="name"
+              class="p-7 text-lg" 
+              type="text" 
+              placeholder="Ajouter une tâche..." v-bind="componentField" />
           </FormControl>
         </div>
         <FormMessage class="flex" />
