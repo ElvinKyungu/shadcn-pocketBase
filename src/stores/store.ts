@@ -36,4 +36,13 @@ export const useUserStore = defineStore('user', {
       }
     },
   },
+  getters: {
+    getUserInfo(): { userID: string | null; name: string | null; token: string | null } {
+      return {
+        userID: this.userID,
+        name: this.name,
+        token: this.token,
+      };
+    },
+  },
 });

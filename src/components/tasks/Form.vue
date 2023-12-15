@@ -17,6 +17,19 @@ import { useUserStore } from '@/stores/store';
 
 const userStore = useUserStore();
 
+const getUserInfo = async () => {
+  const info = await userStore.getUserInfo;
+  console.log(info);
+  return info;
+};
+
+
+
+getUserInfo().then((userInfo) => {
+  console.log(userInfo);
+});
+
+
 const pb = new PocketBase('https://bat-her.pockethost.io');
 
 const getAllTasks = async()=>{
