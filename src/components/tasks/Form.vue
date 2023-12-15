@@ -16,7 +16,7 @@ import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/store';
 
 const userStore = useUserStore();
-console.log(userStore.setUserData);
+console.log(userStore);
 
 const pb = new PocketBase('https://bat-her.pockethost.io');
 
