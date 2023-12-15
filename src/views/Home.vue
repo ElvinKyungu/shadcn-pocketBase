@@ -119,7 +119,7 @@ const loginUser = async () => {
     );
     console.log(result);
     message.value = 'Connecté avec succès!';
-    userStore.setUserData({ name: result.record.name, token: result.token });
+    userStore.setUserData({ userID: result.record.id, name: result.record.name, token: result.token });
     router.push('/user')
   } catch (error) {
     isLogin.value = false; 

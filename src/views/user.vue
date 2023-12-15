@@ -16,11 +16,6 @@ import Header from '@/components/header/Index.vue'
 
 const userStore = useUserStore();
 const router = useRouter();
-
-const logoutUser = () => {
-  userStore.clearUserData();
-  router.push('/'); 
-}
 onMounted(() => {
   userStore.restoreUserData();
   if (!userStore.token) {

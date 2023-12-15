@@ -12,11 +12,13 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { onMounted} from 'vue'
+import { onMounted, ref } from 'vue'
+import { useUserStore } from '@/stores/store';
+
+const userStore = useUserStore();
+console.log(userStore.setUserData);
 
 const pb = new PocketBase('https://bat-her.pockethost.io');
-
-console.log(pb);
 
 onMounted(async() => {
   try {
@@ -24,10 +26,8 @@ onMounted(async() => {
       sort: '-created',
     });
     console.log(records);
-   
   } catch (error) {
     console.log(error);
-    
   } finally {
   }
 })
@@ -39,22 +39,21 @@ const form = useForm({
   validationSchema: formSchema,
 })
 
-const data = {
-    "name": "Je veux ce truc à tout prix",
-    "status": "done",
-    "updatedAt": " 2022-01-01 10:00:00.123Z",
-    "userID": "4w3769t9z89ff0p"
-};
+const newTask = ref({
+  name: '',
+  status: 'draft',
+  userID: '', 
+  updatedAt: null,
+});
 const addTask = async()=>{
-  try{
-    const record = await pb.collection('tasks').create(data);
-    console.log(record);
-    
-  }catch (error){
-    console.log("Une erreur s'est produite "+ error);
-    
-  }
   
+  
+  try{
+    const record = await pb.collection('tasks').create(newTask.value);
+    console.log(record);
+  }catch (error){
+    console.log("Une erreur s'est produite "+ error); 
+  }
 }
 </script>
 
@@ -66,7 +65,7 @@ const addTask = async()=>{
           <FormLabel class="mb-3 text-lg">Task name</FormLabel>
           <FormControl>
             <Input 
-              v-model="name"
+              v-model="newTask.name"
               class="p-7 text-lg" 
               type="text" 
               placeholder="Ajouter une tâche..." v-bind="componentField" />
