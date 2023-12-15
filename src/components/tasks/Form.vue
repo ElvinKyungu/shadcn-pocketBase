@@ -47,13 +47,20 @@ const newTask = ref({
   userID: '', 
   updatedAt: null,
 });
+
+const userID = userStore.$state.userID;
+
 const addTask = async()=>{
-  newTask.value.userID = userStore.$state.id;
-  try{
-    const record = await pb.collection('tasks').create(newTask.value);
-    console.log(record);
-  }catch (error){
-    console.log("Une erreur s'est produite "+ error); 
+  if (userID !== null) {
+    newTask.value.userID = userID;
+    try {
+      const record = await pb.collection('tasks').create(newTask.value);
+      console.log(record);
+    } catch (error) {
+      console.log("Une erreur s'est produite " + error);
+    }
+  } else {
+    console.error("Impossible d'ajouter une tâche sans ID d'utilisateur.");
   }
 }
 </script>
