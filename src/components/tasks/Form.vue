@@ -17,11 +17,9 @@ import { useUserStore } from '@/stores/store';
 
 const userStore = useUserStore();
 
-const userID = userStore.$state.id;
-
 const pb = new PocketBase('https://bat-her.pockethost.io');
 
-onMounted(async() => {
+const getAllTasks = async()=>{
   try {
     const records = await pb.collection('tasks').getFullList({
       sort: '-created',
@@ -31,6 +29,9 @@ onMounted(async() => {
     console.log(error);
   } finally {
   }
+}
+onMounted(()=> {
+  getAllTasks();
 })
 const formSchema = toTypedSchema(z.object({
   username: z.string().min(2).max(50),
