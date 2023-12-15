@@ -16,7 +16,8 @@ import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/store';
 
 const userStore = useUserStore();
-console.log(userStore);
+
+const userID = userStore.$state.id;
 
 const pb = new PocketBase('https://bat-her.pockethost.io');
 
@@ -46,8 +47,8 @@ const newTask = ref({
   updatedAt: null,
 });
 const addTask = async()=>{
-  
-  
+  console.log(userStore.$state.id);
+  newTask.value.userID = userID;
   try{
     const record = await pb.collection('tasks').create(newTask.value);
     console.log(record);
