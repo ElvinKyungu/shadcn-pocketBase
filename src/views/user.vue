@@ -3,7 +3,6 @@
     <Header/>
     <h1>Bienvenue, {{ userStore.name }}!</h1>
     <Index/>
-    
   </div>
 </template>
 

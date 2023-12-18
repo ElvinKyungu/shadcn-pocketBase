@@ -16,18 +16,7 @@ import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/store';
 
 const userStore = useUserStore();
-
-const getUserInfo = async () => {
-  const info = await userStore.getUserInfo;
-  console.log(info);
-  return info;
-};
-
-
-
-getUserInfo().then((userInfo) => {
-  console.log(userInfo);
-});
+console.log(userStore.userID);
 
 
 const pb = new PocketBase('https://bat-her.pockethost.io');
@@ -61,11 +50,9 @@ const newTask = ref({
   updatedAt: null,
 });
 
-const userID = userStore.$state.userID;
-
 const addTask = async()=>{
   if (userID !== null) {
-    newTask.value.userID = userID;
+    newTask.value.userID = userStore.userID;
     try {
       const record = await pb.collection('tasks').create(newTask.value);
       console.log(record);
@@ -83,6 +70,7 @@ const addTask = async()=>{
     <FormField v-slot="{ componentField }" name="username">
       <FormItem class="flex flex-col gap-1">
         <div>
+          <h1>{{ userStore.userID }}</h1>
           <FormLabel class="mb-3 text-lg">Task name</FormLabel>
           <FormControl>
             <Input 
