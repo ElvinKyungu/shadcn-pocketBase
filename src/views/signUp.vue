@@ -13,20 +13,42 @@
             </CardDescription>
           </CardHeader>
           <CardContent class="grid gap-4">
+            <div class="flex flex-row gap-4">
+              <div class="grid gap-2">
+                <Label for="name" class="text-lg text-left">Nom</Label>
+                <Input 
+                  v-model="newUser.name"
+                  class="p-7 focus:outline-none text-lg" 
+                  id="name" 
+                  type="text" 
+                  placeholder="Jonathan Dilengu" 
+                />
+              </div>
+              <div class="grid gap-2">
+                <Label for="username" class="text-lg text-left">Username</Label>
+                <Input 
+                  v-model="newUser.username"
+                  class="p-7 focus:outline-none text-lg" 
+                  id="username" 
+                  type="text" 
+                  placeholder="johndoe" 
+                />
+              </div>
+            </div>
             <div class="grid gap-2">
-              <Label for="email" class="text-lg">Email</Label>
-              <Input 
-                v-model="user.mail"
+              <Label for="mail" class="text-left">E-mail</Label>
+              <Input
+                v-model="newUser.mail"
                 class="p-7 focus:outline-none text-lg" 
-                id="email" 
-                type="email" 
-                placeholder="m@example.com" 
+                id="mail" 
+                type="Email" 
+                placeholder="e@example.com"
               />
             </div>
             <div class="grid gap-2">
-              <Label for="password">Mot de passe</Label>
+              <Label for="password" class="text-left">Mot de passe</Label>
               <Input
-                v-model="user.password"
+                v-model="newUser.password"
                 class="p-7 focus:outline-none text-lg" 
                 id="password" 
                 type="password" 
@@ -37,11 +59,11 @@
           <CardFooter>
             <Button 
               class="w-full p-7 text-lg" 
-              @click="loginUser"
+              @click="signupUser()"
               :class="{ 'pointer-events-none': isLogin, 'cursor-not-allowed': isLogin }"
             >
               <Spinner v-if="isLogin"/>
-              <span v-else>Connectez-vous</span>
+              <span v-else>Inscrivez-vous</span>
             </Button>
           </CardFooter>
         </Card>
@@ -91,7 +113,7 @@
   });
   const pb = new PocketBase('https://bat-her.pockethost.io');
   
-  const loginUser = async () => {
+  const signupUser = async () => {
     try {
       isLogin.value = true; 
       const result = await pb.collection('users').authWithPassword(

@@ -67,10 +67,12 @@
           >
             <Spinner v-if="isLogin"/>
             <span v-else>Connectez-vous</span>
-          </Button>
+          </Button><br> <br>
+          <CardContent class="text-left">Si vous n'avez pas de compte, <RouterLink to="/inscription">inscrivez-vous</RouterLink> </CardContent>
         </CardFooter>
       </Card>
     </div>
+    <RouterView></RouterView>
   </div>
 </template>
 
