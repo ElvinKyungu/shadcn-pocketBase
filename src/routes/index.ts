@@ -12,6 +12,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'user',
     component: () => import('@/views/user.vue'), 
   },
+  {
+    path: '/inscription',
+    name: 'inscription',
+    component: () => import('@/views/signUp.vue'), 
+  },
 ];
 
 const router = createRouter({
