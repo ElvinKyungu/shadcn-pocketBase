@@ -29,7 +29,7 @@
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
-import PocketBase from 'pocketbase';
+import {pb} from '@/pocketbase/pocket';
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
@@ -44,9 +44,6 @@ import { useUserStore } from '@/stores/store';
 
 const userStore = useUserStore();
 console.log(userStore.userID);
-
-
-const pb = new PocketBase('https://bat-her.pockethost.io');
 
 const getAllTasks = async()=>{
   try {

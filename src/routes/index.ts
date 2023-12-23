@@ -1,6 +1,6 @@
 // routes/index.ts
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { isAuthenticated } from '@/guards/authGuard';
+import { isAuthenticated } from '@/guards/authGuard.ts';
 
 const routes: Array<RouteRecordRaw> = [
   {
