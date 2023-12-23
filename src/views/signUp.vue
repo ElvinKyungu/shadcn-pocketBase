@@ -83,7 +83,7 @@
   } from '@/components/ui/card';
   import { Input } from '@/components/ui/input';
   import Spinner from '@/components/Spinner.vue';
-  import PocketBase from 'pocketbase';
+  import {pb} from '@/pocketbase/pocket';
   import { ref } from 'vue';
   import { useRouter } from 'vue-router'
   import { useUserStore } from '@/stores/store';
@@ -111,7 +111,6 @@
     passwordConfirm: null,
     name: null,
   });
-  const pb = new PocketBase('https://bat-her.pockethost.io');
   
   const signupUser = async () => {
     newUser.value.passwordConfirm = newUser.value.password;

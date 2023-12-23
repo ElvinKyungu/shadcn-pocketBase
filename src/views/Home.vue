@@ -88,7 +88,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import Spinner from '@/components/Spinner.vue';
-import PocketBase from 'pocketbase';
+import {pb} from '@/pocketbase/pocket';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/store';
@@ -109,7 +109,6 @@ const user = ref<User>({
   password: null,
 });
 
-const pb = new PocketBase('https://bat-her.pockethost.io');
 const message = ref('Connectez-vous d\'un simple geste');
 
 //Login with Google provider
