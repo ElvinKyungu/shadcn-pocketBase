@@ -18,7 +18,7 @@ const router = useRouter();
 onMounted(() => {
   userStore.restoreUserData();
   if (!userStore.token) {
-    router.push('/'); // Remplacez '/login' par le chemin de votre page de connexion
+    router.push('/'); 
   }
 });
 </script>

@@ -1,5 +1,6 @@
 // routes/index.ts
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { isAuthenticated } from '@/guards/authGuard';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -11,6 +12,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/user',
     name: 'user',
     component: () => import('@/views/user.vue'), 
+    beforeEnter: isAuthenticated,
   },
   {
     path: '/inscription',
@@ -23,5 +25,6 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
 
 export default router;
