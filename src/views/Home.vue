@@ -18,7 +18,7 @@
               <GitHubIcon class="h-4 w-4" />
               Github
             </Button>
-            <Button class="text-lg p-7" variant="outline">
+            <Button @click="loginGoogle()" class="text-lg p-7" variant="outline">
               <svg role="img" viewBox="0 0 24 24" class="mr-2 h-4 w-4">
                 <path
                   fill="currentColor"
@@ -112,6 +112,24 @@ const user = ref<User>({
 const pb = new PocketBase('https://bat-her.pockethost.io');
 const message = ref('Connectez-vous d\'un simple geste');
 
+//Login with Google provider
+const loginGoogle = async () =>{
+  try{
+    isLogin.value = true; 
+    const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
+    console.log(authData.meta.name);
+
+    userStore.setUserData({ userID: authData.meta.id, name: authData.meta.name, token: authData.token });
+    router.push('/user')  
+  }catch(error){
+    isLogin.value = false; 
+    console.error('Erreur lors de la connexion', error);
+  } finally {
+    isLogin.value = false; 
+  }
+}
+
+//Login with formular
 const loginUser = async () => {
   try {
     isLogin.value = true; 

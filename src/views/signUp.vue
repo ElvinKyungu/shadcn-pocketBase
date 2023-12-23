@@ -38,10 +38,10 @@
             <div class="grid gap-2">
               <Label for="mail" class="text-left">E-mail</Label>
               <Input
-                v-model="newUser.mail"
+                v-model="newUser.email"
                 class="p-7 focus:outline-none text-lg" 
                 id="mail" 
-                type="Email" 
+                type="email" 
                 placeholder="e@example.com"
               />
             </div>
@@ -93,7 +93,7 @@
   
   interface newUser {
     username: string | null;
-    mail: string | null;
+    email: string | null;
     emailVisibility: true;
     password: string | null;
     passwordConfirm: string | null;
@@ -105,7 +105,7 @@
   
   const newUser = ref<newUser>({
     username: null,
-    mail: null,
+    email: null,
     emailVisibility: true,
     password: null,
     passwordConfirm: null,
@@ -114,14 +114,11 @@
   const pb = new PocketBase('https://bat-her.pockethost.io');
   
   const signupUser = async () => {
+    newUser.value.passwordConfirm = newUser.value.password;
     try {
       isLogin.value = true; 
-      const result = await pb.collection('users').authWithPassword(
-        user.value.mail || '',
-        user.value.password || '',
-      );
+      const result = await pb.collection('users').create(newUser.value);
       console.log(result);
-      message.value = 'Connecté avec succès!';
       userStore.setUserData({ userID: result.record.id, name: result.record.name, token: result.token });
       router.push('/user')
     } catch (error) {

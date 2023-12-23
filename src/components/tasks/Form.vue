@@ -1,3 +1,30 @@
+<template>
+  <form @submit.prevent="addTask" class="flex flex-col gap-5">
+    <FormField v-slot="{ componentField }" name="username">
+      <FormItem class="flex flex-col gap-1">
+        <div>
+          <h1>{{ userStore.userID }}</h1>
+          <FormLabel class="mb-3 text-lg">Task name</FormLabel>
+          <FormControl>
+            <Input 
+              v-model="newTask.name"
+              class="p-7 text-lg" 
+              type="text" 
+              placeholder="Ajouter une tâche..." v-bind="componentField" />
+          </FormControl>
+        </div>
+        <FormMessage class="flex" />
+      </FormItem>
+    </FormField>
+    <Button 
+      @click="addTask()"
+      type="submit" 
+      class="flex w-full p-7 text-lg"
+    >
+      Ajouter
+    </Button>
+  </form>
+</template>
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
@@ -64,31 +91,3 @@ const addTask = async()=>{
   }
 }
 </script>
-
-<template>
-  <form @submit.prevent="addTask" class="flex flex-col gap-5">
-    <FormField v-slot="{ componentField }" name="username">
-      <FormItem class="flex flex-col gap-1">
-        <div>
-          <h1>{{ userStore.userID }}</h1>
-          <FormLabel class="mb-3 text-lg">Task name</FormLabel>
-          <FormControl>
-            <Input 
-              v-model="newTask.name"
-              class="p-7 text-lg" 
-              type="text" 
-              placeholder="Ajouter une tâche..." v-bind="componentField" />
-          </FormControl>
-        </div>
-        <FormMessage class="flex" />
-      </FormItem>
-    </FormField>
-    <Button 
-      @click="addTask()"
-      type="submit" 
-      class="flex w-full p-7 text-lg"
-    >
-      Ajouter
-    </Button>
-  </form>
-</template>
