@@ -10,7 +10,9 @@
               v-model="newTaskName"
               class="p-7 text-lg" 
               type="text" 
-              placeholder="Ajouter une tâche..." v-bind="componentField" />
+              placeholder="Ajouter une tâche..." 
+              v-bind="componentField" 
+            />
           </FormControl>
         </div>
         <FormMessage class="flex" />
