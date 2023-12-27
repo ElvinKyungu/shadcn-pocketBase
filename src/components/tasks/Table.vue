@@ -108,7 +108,7 @@ const isLoading = ref(true);
 const showModal = ref(false);
 
 const checkDataReady = () => {
-  isLoading.value = false;
+  isLoading.value = props.tasks.value && props.tasks.value.length === 0;
 };
 
 watch(() => props.tasks, () => {
