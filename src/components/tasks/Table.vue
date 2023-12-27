@@ -1,9 +1,12 @@
 <template>
   <div class="overflow-x-auto min-h-[20vh]">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <Spinner v-if="isLoading" />
+    <table 
+      v-if="areDataReady"
+      class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-          <th scope="col" class="px-4 py-3">Product name</th>
+          <th scope="col" class="px-4 py-3">Nom de la tâche</th>
           <th scope="col" class="px-4 py-3">
             <span class="sr-only">Actions</span>
           </th>
@@ -87,8 +90,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import Button from '../ui/button/Button.vue';
-import { Ref, ref, defineProps } from 'vue';
+import Spinner from '@/components/Spinner.vue';
+import { Ref, ref, defineProps, watch, computed } from 'vue';
 export interface Task {
   id: string;
   name: string;
@@ -101,6 +104,17 @@ interface TableProps {
   tasks: Ref<Task[]>;
 }
 const props = defineProps<TableProps>();
-console.log(props); 
+const isLoading = ref(true);
 const showModal = ref(false);
+
+const checkDataReady = () => {
+  isLoading.value = false;
+};
+
+watch(() => props.tasks, () => {
+  checkDataReady();
+}, { immediate: true });
+
+const areDataReady = computed(() => !isLoading.value);
+
 </script>
