@@ -1,6 +1,9 @@
 <template>
   <div class="overflow-x-auto min-h-[20vh]">
-    <Spinner v-if="isLoading" />
+    <Transition name="bounce">
+      <p>Salut les gars</p>
+    </Transition>
+    <Spinner v-if="isLoading" class="flex justify-center items-center h-[20vh]"/>
     <table 
       v-if="areDataReady"
       class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -18,12 +21,14 @@
           v-for="task in props.tasks" 
           :key="task.id"
           class="border-b dark:border-gray-700">
-          <th 
-            scope="row" 
-            class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-          >
-            {{ task.name }}
-          </th>
+          <Transition name="bounce">
+            <th 
+              scope="row" 
+              class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              {{ task.name }}
+            </th>
+          </Transition>
           <td class="px-4 py-3 flex flex-col items-center justify-end">
             <button 
               @click="showModal = !showModal" 
@@ -104,17 +109,33 @@ interface TableProps {
   tasks: Ref<Task[]>;
 }
 const props = defineProps<TableProps>();
-const isLoading = ref(true);
+const isLoading = ref<boolean>(!props.tasks || props.tasks.length === 0);
 const showModal = ref(false);
 
-const checkDataReady = () => {
-  isLoading.value = props.tasks.value && props.tasks.value.length === 0;
-};
 
 watch(() => props.tasks, () => {
-  checkDataReady();
+  console.log(isLoading.value);
+  isLoading.value = !props.tasks || props.tasks.length === 0;
 }, { immediate: true });
 
 const areDataReady = computed(() => !isLoading.value);
-
 </script>
+<style>
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+</style>
