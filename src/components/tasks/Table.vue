@@ -1,15 +1,18 @@
 <template>
   <div class="overflow-x-auto min-h-[20vh]">
-    <Transition name="bounce">
-      <p>Salut les gars</p>
-    </Transition>
     <Spinner v-if="isLoading" class="flex justify-center items-center h-[20vh]"/>
     <table 
       v-if="areDataReady"
       class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-          <th scope="col" class="px-4 py-3">Nom de la tâche</th>
+          <th 
+            scope="col" 
+            class="px-4 py-3 transition-opacity duration-500"
+            v-if="!isLoading"
+          >
+            Nom de la tâche
+          </th>
           <th scope="col" class="px-4 py-3">
             <span class="sr-only">Actions</span>
           </th>
@@ -21,10 +24,11 @@
           v-for="task in props.tasks" 
           :key="task.id"
           class="border-b dark:border-gray-700">
-          <Transition name="bounce">
+          <Transition>
             <th 
+              v-if="!isLoading"
               scope="row" 
-              class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white transition-opacity duration-500"
             >
               {{ task.name }}
             </th>
@@ -121,21 +125,13 @@ watch(() => props.tasks, () => {
 const areDataReady = computed(() => !isLoading.value);
 </script>
 <style>
-.bounce-enter-active {
-  animation: bounce-in 0.5s;
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
 }
-.bounce-leave-active {
-  animation: bounce-in 0.5s reverse;
-}
-@keyframes bounce-in {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(1);
-  }
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
