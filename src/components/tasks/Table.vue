@@ -31,11 +31,12 @@
               class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white transition-opacity duration-500"
             >
               {{ task.name }}
+              {{ task.id }}
             </th>
           </Transition>
           <td class="px-4 py-3 flex flex-col items-center justify-end">
             <button 
-              @click="showModal = !showModal" 
+              @click="toggleModal(task.id)" 
               class="
                 inline-flex items-center p-0.5 text-sm font-medium 
                 text-center text-gray-500 hover:text-gray-800 
@@ -49,7 +50,7 @@
               </svg>
             </button>
             <div 
-              v-show="showModal" 
+              v-show="showModal[task.id]" 
               id="apple-watch-se-dropdown" 
               class="
                 z-10 w-44 bg-white rounded divide-y divide-gray-100 border shadow-lg
@@ -114,13 +115,16 @@ interface TableProps {
 }
 const props = defineProps<TableProps>();
 const isLoading = ref<boolean>(!props.tasks || props.tasks.length === 0);
-const showModal = ref(false);
+  const showModal: Record<string, boolean> = {};
 
 
 watch(() => props.tasks, () => {
-  console.log(isLoading.value);
   isLoading.value = !props.tasks || props.tasks.length === 0;
 }, { immediate: true });
+
+const toggleModal = (taskId: string) => {
+  showModal[taskId] = !showModal[taskId];
+};
 
 const areDataReady = computed(() => !isLoading.value);
 </script>
