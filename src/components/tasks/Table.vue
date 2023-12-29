@@ -50,11 +50,11 @@
               </svg>
             </button>
             <div 
-              v-show="showModal[task.id]" 
+              v-if="showModal[task.id]" 
               id="apple-watch-se-dropdown" 
               class="
-                z-10 w-44 bg-white rounded divide-y divide-gray-100 border shadow-lg
-                dark:bg-gray-700 dark:divide-gray-600 absolute top-[9.8rem] h-auto 
+                z-10 w-44 h-auto bg-white rounded divide-y divide-gray-100 border shadow-lg
+                dark:bg-gray-700 dark:divide-gray-600 absolute top-[9.8rem] 
               "
             >
               <ul 
@@ -81,17 +81,17 @@
                     Edit
                   </button>
                 </li>
+                <li>
+                  <button 
+                    class="
+                      bg-transparent w-full hover:border-transparent text-left
+                      block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 
+                    "
+                  >
+                    Delete
+                  </button>
+                </li>
               </ul>
-              <div class="py-1">
-                <button 
-                  class="
-                    bg-transparent w-full hover:border-transparent text-left
-                    block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 
-                  "
-                >
-                  Delete
-                </button>
-              </div>
             </div>
           </td>
         </tr>
@@ -124,6 +124,7 @@ watch(() => props.tasks, () => {
 
 const toggleModal = (taskId: string) => {
   showModal[taskId] = !showModal[taskId];
+  console.log(showModal[taskId]);
 };
 
 const areDataReady = computed(() => !isLoading.value);
