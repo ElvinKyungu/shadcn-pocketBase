@@ -14,7 +14,7 @@
         </CardHeader>
         <CardContent class="grid gap-4">
           <div class="grid grid-cols-2 gap-6">
-            <Button class="text-lg p-7" variant="outline">
+            <Button @click="loginWithLinkedin()" class="text-lg p-7" variant="outline">
               <GitHubIcon class="h-4 w-4" />
               Github
             </Button>
@@ -120,6 +120,20 @@ const loginGoogle = async () =>{
 
     userStore.setUserData({ userID: authData.meta.id, name: authData.meta.name, token: authData.token });
     router.push('/user')  
+  }catch(error){
+    isLogin.value = false; 
+    console.error('Erreur lors de la connexion', error);
+  } finally {
+    isLogin.value = false; 
+  }
+}
+
+//Login with Linkedin 
+const loginWithLinkedin = async ()=>{
+  try{
+    isLogin.value = true; 
+    const authData = await pb.collection('users').authWithOAuth2({ provider: 'oidc' });
+    console.log(authData);
   }catch(error){
     isLogin.value = false; 
     console.error('Erreur lors de la connexion', error);
