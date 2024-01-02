@@ -8,5 +8,4 @@
 import TaskContent from "@/components/tasks/TaskContent.vue"
 import Form from "@/components/tasks/Form.vue"
 
-
 </script>
