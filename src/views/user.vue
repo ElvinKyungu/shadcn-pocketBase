@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <div class="w-full relative">
     <Header/>
-    <h1>Bienvenue, {{ userStore.name }}!</h1>
-    <TaskIndex/>
+    <div class="w-[100wh]">
+      f
+      <TaskIndex/>
+    </div>
   </div>
 </template>
 

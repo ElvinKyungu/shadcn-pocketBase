@@ -1,9 +1,7 @@
 <template>
-  <div>
+  <div class="min-w-[1200px] relative min-h-screen flex justify-start">
     <router-view></router-view>
   </div>
 </template>
 <script lang="ts" setup>
-  import PocketBase from 'pocketbase';
-  const pb = new PocketBase('https://bat-her.pockethost.io');
 </script>

@@ -111,6 +111,20 @@ const user = ref<User>({
 
 const message = ref('Connectez-vous d\'un simple geste');
 
+//Login with Linkedin 
+const loginWithLinkedin = async ()=>{
+  try{
+    isLogin.value = true; 
+    const authData = await pb.collection('users').authWithOAuth2({ provider: 'oidc' });
+    console.log(authData);
+  }catch(error){
+    isLogin.value = false; 
+    console.error('Erreur lors de la connexion', error);
+  } finally {
+    isLogin.value = false; 
+  }
+}
+
 //Login with Google provider
 const loginGoogle = async () =>{
   try{
@@ -120,20 +134,6 @@ const loginGoogle = async () =>{
 
     userStore.setUserData({ userID: authData.meta.id, name: authData.meta.name, token: authData.token });
     router.push('/user')  
-  }catch(error){
-    isLogin.value = false; 
-    console.error('Erreur lors de la connexion', error);
-  } finally {
-    isLogin.value = false; 
-  }
-}
-
-//Login with Linkedin 
-const loginWithLinkedin = async ()=>{
-  try{
-    isLogin.value = true; 
-    const authData = await pb.collection('users').authWithOAuth2({ provider: 'oidc' });
-    console.log(authData);
   }catch(error){
     isLogin.value = false; 
     console.error('Erreur lors de la connexion', error);

@@ -3,9 +3,9 @@
     <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
       <!-- Start coding here -->
       <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-        <TaskHeaderContent />
+        <!--<TaskHeaderContent />-->
         <!-- Passer le tableau directement -->
-        <Table :tasks="tasks" />
+        <!--<Table :tasks="tasks" />-->
         <TaskFooterContent />
       </div>
     </div>
