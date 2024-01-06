@@ -5,14 +5,12 @@ import NavigationLogo from './NavigationLogo.vue'
 </script>
 
 <template>
-  <header 
-    class="
-      fixed inset-0 w-full h-[5.6rem] flex 
-      py-4 border-b border-gray-300 shadow-md 
-      px-20 z-40 bg-white
-    "
-  >
-    <NavigationLogo/>
-    <Navigation/>
+  <header class="bg-yellow-50 py-3 px-4">
+    <div class="mx-auto">
+      <div class="flex items-center justify-between">
+        <NavigationLogo/>
+        <Navigation/>
+      </div>
+    </div>
   </header>
 </template>
