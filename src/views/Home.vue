@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="relative w-full h-screen">
     <div 
-      class="h-screen relative flex items-center justify-center"
+      class="h-screen flex items-center justify-center w-full absolute"
     >
-      <Card class="w-[35rem] border-2">
+      <Card class="w-[35rem] border-2 ">
         <CardHeader class="space-y-1">
           <CardTitle class="text-2xl">
             {{ message }}
@@ -16,7 +16,7 @@
           <div class="grid grid-cols-2 gap-6">
             <Button @click="loginWithLinkedin()" class="text-lg p-7" variant="outline">
               <GitHubIcon class="h-4 w-4" />
-              Github
+              Linkedin
             </Button>
             <Button @click="loginGoogle()" class="text-lg p-7" variant="outline">
               <svg role="img" viewBox="0 0 24 24" class="mr-2 h-4 w-4">

@@ -1,32 +1,3 @@
-<script setup lang="ts">
-import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
-import {
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuRoot,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from 'radix-vue'
-import { Button } from '@/components/ui/button'
-import NavigationMenuListItem from './NavigationMenuListItem.vue'
-import { useUserStore } from '@/stores/store';
-import { useRouter } from 'vue-router'
-
-const userStore = useUserStore();
-const router = useRouter();
-
-const logoutUser = () => {
-  userStore.clearUserData();
-  router.push('/'); 
-}
-
-const currentTrigger = ref('')
-</script>
-
 <template>
   <NavigationMenuRoot 
     v-model="currentTrigger" 
@@ -45,7 +16,7 @@ const currentTrigger = ref('')
             group flex select-none items-center justify-between 
             gap-[2px] rounded-[4px] px-3 py-4 text-[15px] 
             font-medium leading-none outline-none 
-            focus:shadow-[0_0_0_2px] text-black bg-transparent border border-gray-400
+            focus:shadow-[0_0_0_2px] text-black bg-green-100  border border-black/50
           "
         >
           Learn
@@ -60,7 +31,7 @@ const currentTrigger = ref('')
             data-[motion=from-start]:animate-enterFromLeft 
             data-[motion=from-end]:animate-enterFromRight 
             data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight 
-            absolute top-0 left-0 w-full sm:w-auto bg-gray-100 border border-gray-200 shadow-lg
+            absolute top-0 left-0 w-full sm:w-auto bg-green-100 border border-gray-200 shadow-lg
           "
         >
           <ul class="one m-0 grid list-none gap-x-[10px] p-[22px] sm:w-[500px] sm:grid-cols-[0.75fr_1fr]">
@@ -101,7 +72,7 @@ const currentTrigger = ref('')
             text-grass11 hover:bg-green3 focus:shadow-green7 group 
             flex select-none items-center justify-between gap-[2px] 
             rounded-[4px] px-3 py-4 text-[15px] font-medium leading-none 
-            outline-none focus:shadow-[0_0_0_2px] text-black bg-transparent border border-gray-400"
+            outline-none focus:shadow-[0_0_0_2px] text-black bg-green-100 border border-gray-400"
         >
           Overview
           <Icon
@@ -116,7 +87,7 @@ const currentTrigger = ref('')
                 data-[motion=from-end]:animate-enterFromRight 
                 data-[motion=to-start]:animate-exitToLeft 
                 data-[motion=to-end]:animate-exitToRight absolute 
-                top-0 left-0 w-full sm:w-auto bg-gray-100 border border-gray-200 shadow-lg"
+                top-0 left-0 w-full sm:w-auto bg-green-100 border border-gray-200 shadow-lg"
             >
           <ul class="m-0 grid list-none gap-x-[10px] p-[22px] sm:w-[600px] sm:grid-flow-col sm:grid-rows-3 text-left">
             <NavigationMenuListItem class="text-black" title="Introduction" href="#">
@@ -149,7 +120,7 @@ const currentTrigger = ref('')
             group flex select-none items-center justify-between 
             gap-[2px] rounded-[4px] px-3 py-6 text-[15px] 
             font-medium leading-none outline-none 
-            focus:shadow-[0_0_0_2px] text-black bg-transparent border border-gray-400
+            focus:shadow-[0_0_0_2px] text-black bg-red-200 border border-gray-400
           "
         >
           Déconnexion
@@ -159,7 +130,7 @@ const currentTrigger = ref('')
       <NavigationMenuIndicator
         class="data-[state=hidden]:opacity-0 duration-200 data-[state=visible]:animate-fadeIn data-[state=hidden]:animate-fadeOut top-full z-[1] flex h-[10px] items-end justify-center overflow-hidden transition-[all,transform_250ms_ease]"
       >
-        <div class="relative top-[70%] h-[10px] w-[10px] rotate-[45deg] rounded-tl-[2px] bg-white" />
+        <div class="relative top-[70%] h-[10px] w-[10px] rotate-[45deg] rounded-tl-[2px] " />
       </NavigationMenuIndicator>
     </NavigationMenuList>
 
@@ -170,3 +141,31 @@ const currentTrigger = ref('')
     </div>
   </NavigationMenuRoot>
 </template>
+<script setup lang="ts">
+import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
+import {
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuRoot,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from 'radix-vue'
+import { Button } from '@/components/ui/button'
+import NavigationMenuListItem from './NavigationMenuListItem.vue'
+import { useUserStore } from '@/stores/store';
+import { useRouter } from 'vue-router'
+
+const userStore = useUserStore();
+const router = useRouter();
+
+const logoutUser = () => {
+  userStore.clearUserData();
+  router.push('/'); 
+}
+
+const currentTrigger = ref('')
+</script>
