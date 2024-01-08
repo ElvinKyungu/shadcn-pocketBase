@@ -37,7 +37,7 @@
     </div>
     <hr class="my-10">
     <transition>
-      <LateralAddTask v-if="showModal" />
+      <LateralAddTask v-if="showModal" @close-modal="closeModalHandler" />
     </transition>
   </div>
 </template>
@@ -49,4 +49,7 @@ const showModal = ref(false)
 const shoModalAddTask = ()=>{
   showModal.value = !showModal.value;
 }
+const closeModalHandler = () => {
+  showModal.value = false;
+};
 </script>
