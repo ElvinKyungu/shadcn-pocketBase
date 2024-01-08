@@ -31,7 +31,7 @@
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
-import {pb} from '@/pocketbase/pocket';
+
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
@@ -42,15 +42,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import Spinner from '@/components/Spinner.vue'
-import { onMounted, ref, watch } from 'vue'
-import { useUserStore } from '@/stores/store';
 
-const userStore = useUserStore();
-
-console.log(userStore.userID);
-pb.autoCancellation(false);
-
-const isSubmit = ref(false)
 const getAllTasks = async()=>{
   try {
     const records = await pb.collection('tasks').getFullList({
@@ -73,38 +65,10 @@ const form = useForm({
   validationSchema: formSchema,
 })
 
-const newTaskName = ref('');
-const newTask = ref({
-  name: '',
-  status: 'draft',
-  userID: userStore.userID, 
-  updatedAt: null,
-});
-
-watch(() => userStore.userID, (newValue, oldValue) => {
-  console.log('Nouvelle valeur de userID :', newValue);
-  console.log('Ancienne valeur de userID :', oldValue);
-  newTask.value.userID = newValue;
-});
 
 
-const addTask = async()=>{
-  if (newTask.value.userID !== null) {
-    try {
-      isSubmit.value = true;
-      newTask.value.name = newTaskName.value;
-      const record = await pb.collection('tasks').create(newTask.value);
-      console.log(record);
-      //Réinitialisation du tableau
-      newTaskName.value = '';
 
-      isSubmit.value = false;
-    } catch (error) {
-      isSubmit.value = false;
-      console.log("Une erreur s'est produite " + error);
-    }
-  } else {
-    console.error("Impossible d'ajouter une tâche sans ID d'utilisateur.");
-  }
-}
+
+
+
 </script>

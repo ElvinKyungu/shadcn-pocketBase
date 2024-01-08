@@ -131,12 +131,15 @@
                     placeholder="Ajouter une description">
                   </textarea>
                 </div>
+                <div class="col-span-2 flex items-center justify-center">
+                  <span class="text-red-500 text-lg">{{ errorMessage }}</span>
+                </div>
               </div>
           </form>
           </div>
           <div class="flex items-end justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
             <button 
-              @click="addTask()"
+              @click="addNewTask()"
               type="submit" 
               class="text-gray-900 inline-flex items-center bg-green-200 hover:bg-green-300 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
@@ -149,12 +152,20 @@
   </div>
 </template>
 <script setup lang="ts">
-import {ref} from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker';
+import {pb} from '@/pocketbase/pocket';
 //import { fr } from 'date-fns/locale';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { defineEmits } from "vue";
+import { ref, watch } from 'vue'
+import { useUserStore } from '@/stores/store';
 
+const userStore = useUserStore();
+
+console.log(userStore.userID);
+pb.autoCancellation(false);
+
+const isSubmit = ref(false)
 
 
 const date = ref(new Date());
@@ -163,7 +174,57 @@ const emits = defineEmits();
 const closeModal = () => {
   emits("close-modal");
 };
-const addTask = ()=>{
 
+const newTaskName = ref('');
+const errorMessage = ref('')
+const newTask = ref({
+  name: '',
+  status: 'draft',
+  userID: userStore.userID, 
+  updatedAt: null,
+  category:'',
+  collaborator:'',
+  description:''
+});
+
+const validateForm = () => {
+  // Vérifiez ici si tous les champs sont remplis
+  if (
+      !newTaskName.value.trim() || newTask.value.category === null || 
+      !newTask.value.collaborator.trim() || !newTask.value.description.trim()
+    ) {
+      errorMessage.value = "Veuillez renseigner tous les champs";
+    return false;
+  }
+  return true;
 }
+
+
+const addNewTask = async()=>{
+  if(validateForm()){
+    if (newTask.value.userID !== null) {
+      try {
+        isSubmit.value = true;
+        newTask.value.name = newTaskName.value;
+        const record = await pb.collection('tasks').create(newTask.value);
+        console.log(record);
+        //Réinitialisation du tableau
+        newTaskName.value = '';
+
+        isSubmit.value = false;
+      } catch (error) {
+        isSubmit.value = false;
+        console.log("Une erreur s'est produite " + error);
+      }
+    } else {
+      console.error("Impossible d'ajouter une tâche sans ID d'utilisateur.");
+    }
+  }
+}
+watch(() => userStore.userID, (newValue, oldValue) => {
+  console.log('Nouvelle valeur de userID :', newValue);
+  console.log('Ancienne valeur de userID :', oldValue);
+  newTask.value.userID = newValue;
+});
+
 </script>
