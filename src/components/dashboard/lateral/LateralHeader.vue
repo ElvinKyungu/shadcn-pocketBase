@@ -24,6 +24,7 @@
           </svg>
         </button>
         <button 
+          @click="shoModalAddTask()"
           type="button" 
           class="
             inline-flex items-center justify-center px-5 rounded-xl py-3
@@ -34,7 +35,18 @@
         </button>
       </div>
     </div>
-
     <hr class="my-10">
+    <transition>
+      <LateralAddTask v-if="showModal" />
+    </transition>
   </div>
 </template>
+<script setup lang="ts">
+import {ref} from "vue"
+import LateralAddTask from '@/components/dashboard/lateral/LateralAddTask.vue'
+
+const showModal = ref(false)
+const shoModalAddTask = ()=>{
+  showModal.value = !showModal.value;
+}
+</script>
