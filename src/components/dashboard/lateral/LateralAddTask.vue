@@ -109,8 +109,7 @@
                   >
                 </div>
                 <div class="col-span-2">
-                  <VueDatePicker v-model="date"></VueDatePicker>
-                  
+                  <VueDatePicker v-model="date" format="E"></VueDatePicker>
                 </div>
                 <div class="col-span-2">
                   <label 
@@ -152,11 +151,13 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker';
+//import { fr } from 'date-fns/locale';
 import '@vuepic/vue-datepicker/dist/main.css'
-
-const date = ref();
 import { defineEmits } from "vue";
 
+
+
+const date = ref(new Date());
 const emits = defineEmits();
 
 const closeModal = () => {
