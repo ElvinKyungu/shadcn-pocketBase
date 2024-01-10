@@ -7,7 +7,7 @@
       <div class="p-4">
         <ul class="space-y-1">
           <li v-for="item in sidebarItems" :key="item.id">
-            <button class="sidebar_item" @click="handleItemClick(item)">
+            <button class="sidebar_item" @click="handleItemClick(item.id)">
               <svg :xmlns="item.svgNamespace" :width="item.svgWidth" :height="item.svgHeight" :fill="item.svgFill" class="text-lg mr-4" :viewBox="item.svgViewBox">
                 <path :d="item.svgPath"/>
               </svg>
@@ -101,7 +101,9 @@ const sidebarItems = [
     svgPath: 'M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z',
   }
 ];
-const handleItemClick = (item: any) => {
-  console.log(`Clicked on ${item.label}`);
+
+const handleItemClick = (itemId: string) => {
+  console.log(`Sidebar item clicked with id: ${itemId}`);
+  emits('sidebar-item-clicked', itemId);
 };
 </script>
