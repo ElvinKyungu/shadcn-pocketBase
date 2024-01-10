@@ -1,6 +1,6 @@
 <template>
-  <div class="px-6 py-8">
-    <div class="max-w-5xl mx-auto">
+  <div class="px-6 py-8 ml-28">
+    <div class="max-w-7xl mx-auto">
       <div class="bg-white rounded-3xl p-8 mb-5">
         <LateralHeader/>
         <Transition v-if="showLateralItem" name="fade" mode="out-in">
