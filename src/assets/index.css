@@ -75,4 +75,8 @@
   body {
     @apply bg-background text-foreground;
   }
+  .sidebar_item{
+    @apply w-full flex bg-white hover:bg-yellow-50 rounded-xl font-bold text-sm text-gray-900 
+    py-3 px-4
+  }
 }

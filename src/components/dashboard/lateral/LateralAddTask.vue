@@ -7,7 +7,7 @@
     -translate-y-1/2 bg-black/5" @click="closeModal">
 
     </div>
-    <div  
+    <div
       tabindex="-1" 
       aria-hidden="true" 
       class="
