@@ -7,7 +7,10 @@
       <div class="p-4">
         <ul class="space-y-1">
           <li v-for="item in sidebarItems" :key="item.id">
-            <button class="sidebar_item" @click="handleItemClick(item.id)">
+            <button 
+              class="sidebar_item" 
+              :class="{ 'bg-yellow-200 transition hover:bg-yellow-200': activeItem === item.id }"
+              @click="handleItemClick(item.id)">
               <svg :xmlns="item.svgNamespace" :width="item.svgWidth" :height="item.svgHeight" :fill="item.svgFill" class="text-lg mr-4" :viewBox="item.svgViewBox">
                 <path :d="item.svgPath"/>
               </svg>
@@ -37,11 +40,11 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/store';
 import { useRouter } from 'vue-router'
-import { defineEmits } from "vue";
+import { defineEmits, ref } from "vue";
 
 const userStore = useUserStore();
 const router = useRouter();
-
+const activeItem = ref<string | null>(null);
 const emits = defineEmits();
 const logoutUser = () => {
   userStore.clearUserData();
@@ -50,6 +53,16 @@ const logoutUser = () => {
 
 
 const sidebarItems = [
+  {
+    id: 'accueil',
+    label: 'Dashboard',
+    svgNamespace: 'http://www.w3.org/2000/svg',
+    svgWidth: '1em',
+    svgHeight: '1em',
+    svgFill: 'currentColor',
+    svgViewBox: '0 0 16 16',
+    svgPath: 'M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z',
+  },
   {
     id: 'tasklist',
     label: 'Task List',
@@ -60,6 +73,8 @@ const sidebarItems = [
     svgViewBox: '0 0 16 16',
     svgPath: 'M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z',
   },
+  
+
   {
     id: 'project',
     label: 'Projects',
@@ -105,5 +120,6 @@ const sidebarItems = [
 const handleItemClick = (itemId: string) => {
   console.log(`Sidebar item clicked with id: ${itemId}`);
   emits('sidebar-item-clicked', itemId);
+  activeItem.value = itemId;
 };
 </script>

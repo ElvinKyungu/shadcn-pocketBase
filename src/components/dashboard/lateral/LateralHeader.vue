@@ -36,9 +36,9 @@
       </div>
     </div>
     <hr class="my-10">
-    <transition>
+    <Transition>
       <LateralAddTask v-if="showModal" @close-modal="closeModalHandler" />
-    </transition>
+    </Transition>
   </div>
 </template>
 <script setup lang="ts">
@@ -53,3 +53,14 @@ const closeModalHandler = () => {
   showModal.value = false;
 };
 </script>
+<style scoped>
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}</style>

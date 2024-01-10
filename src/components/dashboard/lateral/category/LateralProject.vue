@@ -1,3 +1,3 @@
 <template>
-  <h1>Hey, this is task list</h1>
+  <h1>Hey, this is project side</h1>
 </template>
