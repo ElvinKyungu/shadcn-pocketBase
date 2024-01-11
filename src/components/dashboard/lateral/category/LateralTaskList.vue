@@ -25,7 +25,7 @@
               text-gray-800
             "
           >
-            Liste de tâches
+            Il y a 1 tâche en général
           </p>
           <div>
             <button
@@ -135,7 +135,6 @@
               </td>
               <td class="px-7 2xl:px-0">
                 <button
-                  @click="data.show===null?data.show=0:data.show=null"
                   class="focus:ring-2 rounded-md focus:outline-none ml-7"
                   role="button"
                   aria-label="options"
@@ -170,52 +169,6 @@
                     ></path>
                   </svg>
                 </button>
-                <div
-                  class="
-                    dropdown-content
-                    bg-white
-                    shadow
-                    w-24
-                    absolute
-                    z-30
-                    right-0
-                    mr-6
-                  "
-                  v-if="data.show===0"
-                >
-                  <div
-                    tabindex="0"
-                    class="
-                      focus:outline-none
-                      focus:text-indigo-600
-                      text-xs
-                      w-full
-                      hover:bg-indigo-700
-                      py-4
-                      px-4
-                      cursor-pointer
-                      hover:text-white
-                    "
-                  >
-                    <p>Edit</p>
-                  </div>
-                  <div
-                    tabindex="0"
-                    class="
-                      focus:outline-none
-                      focus:text-indigo-600
-                      text-xs
-                      w-full
-                      hover:bg-indigo-700
-                      py-4
-                      px-4
-                      cursor-pointer
-                      hover:text-white
-                    "
-                  >
-                    <p>Delete</p>
-                  </div>
-                </div>
               </td>
             </tr>
           </tbody>
@@ -225,11 +178,41 @@
   </body>
 </template>
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { pb } from '@/pocketbase/pocket';
+import { ref, onMounted } from 'vue';
 
-const data = reactive({
-  show: null as null | 0,
-});
+export interface Task {
+  id: string; 
+  name: string;
+  status: string; 
+  userID: string;
+  updatedAt: string | null; 
+}
+
+const tasks = ref<Task[]>([]);
+
+const getAllTasks = async() => {
+  try {
+    const records = await pb.collection('tasks').getFullList({
+      sort: '-created',
+    });
+    tasks.value = records.map((record) => ({
+      id: record.id,
+      name: record.name || '',
+      status: record.status || '',
+      userID: record.userID || '',
+      updatedAt: record.updatedAt || null,
+    }));
+    console.log(tasks.value);
+  } catch (error) {
+    console.log(error);
+  } finally {
+  }
+}
+
+onMounted(() => {
+  getAllTasks()
+})
 </script>
 
 <style>

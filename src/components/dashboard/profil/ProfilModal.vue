@@ -1,12 +1,12 @@
 <template>
   <div class="flex w-full h-screen fixed">
     <div>
-      <div class="fixed inset-0 transition-opacity">
-        <div class="absolute inset-0 bg-gray-500 opacity-40 z-40 cursor-pointer"></div>
+      <div class="fixed inset-0 transition-opacity cursor-pointer">
+        <div class="absolute inset-0 bg-gray-800 opacity-50 w-full z-40 cursor-pointer"></div>
       </div>
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex text-center sm:block sm:p-0">
-          <div class="ml-[78%] -mt-20 sm:max-w-[24rem] sm:w-full">
+          <div class="ml-[77%] -mt-20 sm:max-w-[24rem] sm:w-full">
             <div class="relative">
               <div class="flex justify-end items-end">
                 <div class="container mx-auto my-60">

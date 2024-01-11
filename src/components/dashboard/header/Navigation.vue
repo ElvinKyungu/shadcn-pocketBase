@@ -154,11 +154,11 @@ import {
 //import { Button } from '@/components/ui/button'
 import NavigationMenuListItem from './NavigationMenuListItem.vue'
 import ProfilModal from '@/components/dashboard/profil/ProfilModal.vue'
-import { useUserStore } from '@/stores/store';
-import { useRouter } from 'vue-router'
+//import { useUserStore } from '@/stores/store';
+//import { useRouter } from 'vue-router'
 
-const userStore = useUserStore();
-const router = useRouter();
+//const userStore = useUserStore();
+//const router = useRouter();
 const showProfilModal = ref(false)
 const handleProfilModalClik = () => {
   showProfilModal.value = !showProfilModal.value;
