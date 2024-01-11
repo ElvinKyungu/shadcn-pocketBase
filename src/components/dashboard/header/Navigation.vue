@@ -112,20 +112,15 @@
         </NavigationMenuContent>
       </NavigationMenuItem>
 
-      <NavigationMenuItem>
-        <Button 
-          @click="logoutUser" 
-          class="
-            text-grass11 hover:bg-green3 focus:shadow-green7 
-            group flex select-none items-center justify-between 
-            gap-[2px] rounded-[4px] px-3 py-6 text-[15px] 
-            font-medium leading-none outline-none 
-            focus:shadow-[0_0_0_2px] text-black bg-red-200 border border-gray-400
-          "
-        >
-          Déconnexion
-        </Button>
+      <NavigationMenuItem @click="handleProfilModalClik">
+        <div class="rounded-full text-white items-center justify-center p-4 bg-primary flex gap-2 cursor-pointer">
+          <span>Profil</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+          </svg>
+        </div>
       </NavigationMenuItem>
+      <ProfilModal/>
 
       <NavigationMenuIndicator
         class="data-[state=hidden]:opacity-0 duration-200 data-[state=visible]:animate-fadeIn data-[state=hidden]:animate-fadeOut top-full z-[1] flex h-[10px] items-end justify-center overflow-hidden transition-[all,transform_250ms_ease]"
@@ -154,17 +149,17 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from 'radix-vue'
-import { Button } from '@/components/ui/button'
+//import { Button } from '@/components/ui/button'
 import NavigationMenuListItem from './NavigationMenuListItem.vue'
+import ProfilModal from '@/components/dashboard/profil/ProfilModal.vue'
 import { useUserStore } from '@/stores/store';
 import { useRouter } from 'vue-router'
 
 const userStore = useUserStore();
 const router = useRouter();
-
-const logoutUser = () => {
-  userStore.clearUserData();
-  router.push('/'); 
+const showProfilModal = ref(false)
+const handleProfilModalClik = () => {
+  showProfilModal.value = !showProfilModal.value;
 }
 
 const currentTrigger = ref('')

@@ -4,7 +4,7 @@
     <aside class="fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60">
       <Aside @sidebar-item-clicked="handleSidebarItemClicked"/>
     </aside>
-    <main class="pt-16 max-h-screen">
+    <main class="max-h-screen">
       <LateralIndex :itemId="selectedSidebarItemId"/>
     </main>
   </div>

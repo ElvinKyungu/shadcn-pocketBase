@@ -25,7 +25,7 @@
               text-gray-800
             "
           >
-            Projects
+            Liste de tâches
           </p>
           <div>
             <button
@@ -39,14 +39,14 @@
                 justify-start
                 px-6
                 py-3
-                bg-indigo-700
-                hover:bg-indigo-600
+                bg-green-200
+                hover:bg-green-300
                 focus:outline-none
                 rounded
               "
             >
-              <p class="text-sm font-medium leading-none text-white">
-                New Project
+              <p class="text-sm font-medium leading-none text-black">
+                Filtrer
               </p>
             </button>
           </div>
@@ -68,12 +68,10 @@
                 text-gray-800
               "
             >
-              <th class="font-normal text-left pl-4">Project</th>
-              <th class="font-normal text-left pl-12">Progress</th>
-              <th class="font-normal text-left pl-12">Tasks</th>
-              <th class="font-normal text-left pl-20">Budget</th>
+              <th class="font-normal text-left pl-4">Nom de la tâche</th>
               <th class="font-normal text-left pl-20">Deadline</th>
-              <th class="font-normal text-left pl-16">Members</th>
+              <th class="font-normal text-left pl-16">Membres</th>
+              <th class="font-normal text-left pl-7">Actions</th>
             </tr>
           </thead>
           <tbody class="w-full">
@@ -100,30 +98,12 @@
                     />
                   </div>
                   <div class="pl-4">
-                    <p class="font-medium">UX Design &amp; Visual Strategy</p>
+                    <p class="font-medium">Boire 3 litres &amp; manger le gombo</p>
                     <p class="text-xs leading-3 text-gray-600 pt-2">
-                      Herman Group
+                      Important
                     </p>
                   </div>
                 </div>
-              </td>
-              <td class="pl-12">
-                <p class="text-sm font-medium leading-none text-gray-800">
-                  72%
-                </p>
-                <div class="w-24 h-3 bg-gray-100 rounded-full mt-2">
-                  <div class="w-20 h-3 bg-green-progress rounded-full"></div>
-                </div>
-              </td>
-              <td class="pl-12">
-                <p class="font-medium">32/47</p>
-                <p class="text-xs leading-3 text-gray-600 mt-2">
-                  5 tasks pending
-                </p>
-              </td>
-              <td class="pl-20">
-                <p class="font-medium">$13,000</p>
-                <p class="text-xs leading-3 text-gray-600 mt-2">$4,200 left</p>
               </td>
               <td class="pl-20">
                 <p class="font-medium">22.12.21</p>
