@@ -2,7 +2,9 @@
   <div class="flex flex-col justify-between h-full">
     <div class="flex-grow">
       <div class="px-4 py-7 text-center border-b">
-        <h1 class="text-xl font-bold leading-none"><span class="text-yellow-700">Task Manager</span> App</h1>
+        <h1 class="text-xl font-bold leading-none">
+          <span class="text-yellow-700">Task Manager</span> App
+        </h1>
       </div>
       <div class="p-4">
         <ul class="space-y-1">

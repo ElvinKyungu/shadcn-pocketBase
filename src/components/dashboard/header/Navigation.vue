@@ -114,13 +114,15 @@
 
       <NavigationMenuItem @click="handleProfilModalClik">
         <div class="rounded-full text-white items-center justify-center p-4 bg-primary flex gap-2 cursor-pointer">
-          <span>Profil</span>
+          <span>Profile</span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </div>
+        <transition name="fade" mode="out-in">
+          <ProfilModal v-if="showProfilModal" />
+        </transition>
       </NavigationMenuItem>
-      <ProfilModal/>
 
       <NavigationMenuIndicator
         class="data-[state=hidden]:opacity-0 duration-200 data-[state=visible]:animate-fadeIn data-[state=hidden]:animate-fadeOut top-full z-[1] flex h-[10px] items-end justify-center overflow-hidden transition-[all,transform_250ms_ease]"
@@ -164,3 +166,14 @@ const handleProfilModalClik = () => {
 
 const currentTrigger = ref('')
 </script>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
