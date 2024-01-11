@@ -2,7 +2,7 @@
   <div class="flex w-full h-screen fixed">
     <div>
       <div class="fixed inset-0 transition-opacity">
-        <div @click="handleItemClick" class="absolute inset-0 bg-gray-500 opacity-40 z-40 cursor-pointer"></div>
+        <div class="absolute inset-0 bg-gray-500 opacity-40 z-40 cursor-pointer"></div>
       </div>
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex text-center sm:block sm:p-0">
@@ -48,13 +48,3 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-import { ref, defineEmits } from 'vue';
-
-const emits = defineEmits();
-
-const handleItemClick = () => {
-  console.log('Hello');
-  emits('remove');
-};
-</script>
