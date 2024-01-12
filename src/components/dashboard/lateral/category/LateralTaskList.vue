@@ -108,7 +108,16 @@
                 </div>
               </td>
               <td class="pl-20">
-                <p class="font-medium">{{ formatDeadline(task.deadline) }}</p>
+                <p 
+                  v-html="formatDeadline(task.deadline).date" 
+                  class="font-medium"
+                >
+                </p>
+                <p
+                  v-html="formatDeadline(task.deadline).daysRemaining" 
+                  class="text-xs leading-3 text-gray-600 pt-2"
+                >
+              </p>
               </td>
               <td class="pl-16">
                 <div class="flex items-center">
@@ -216,8 +225,8 @@ const getAllTasks = async() => {
   }
 }
 
-const formatDeadline = (deadline: string | null): string => {
-  if (!deadline) return '';
+const formatDeadline = (deadline: string | null): { date: string; daysRemaining: string } => {
+  if (!deadline) return { date: '', daysRemaining: '' };
 
   const deadlineDate = new Date(deadline);
   const currentDate = new Date();
@@ -226,7 +235,14 @@ const formatDeadline = (deadline: string | null): string => {
 
   const formattedDeadline = format(deadlineDate, 'dd/MM/yyyy');
 
-  return `${formattedDeadline}\n${daysRemaining} jours restants`;
+  const daysText = daysRemaining === 1 ? 'jour restant' : 'jours restants';
+  const daysRemainingText = daysRemaining > 0
+    ? `${daysRemaining} ${daysText}`
+    : 'Date dépassée';
+  return {
+    date: formattedDeadline,
+    daysRemaining: daysRemainingText,
+  };
 };
 
 onMounted(() => {
