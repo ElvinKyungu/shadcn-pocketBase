@@ -25,7 +25,7 @@
               text-gray-800
             "
           >
-            Il y a 1 tâche en général
+            Il y a {{ tasks.length }} tâche en général
           </p>
           <div>
             <button
@@ -76,6 +76,8 @@
           </thead>
           <tbody class="w-full">
             <tr
+              v-for="task in tasks"
+              :key="task.id"
               tabindex="0"
               class="
                 focus:outline-none
@@ -98,16 +100,15 @@
                     />
                   </div>
                   <div class="pl-4">
-                    <p class="font-medium">Boire 3 litres &amp; manger le gombo</p>
+                    <p class="font-medium">{{ task.name }}</p>
                     <p class="text-xs leading-3 text-gray-600 pt-2">
-                      Important
+                      {{ task.category.trim().toLocaleUpperCase() }}
                     </p>
                   </div>
                 </div>
               </td>
               <td class="pl-20">
-                <p class="font-medium">22.12.21</p>
-                <p class="text-xs leading-3 text-gray-600 mt-2">34 days</p>
+                <p class="font-medium">{{ formatDeadline(task.deadline) }}</p>
               </td>
               <td class="pl-16">
                 <div class="flex items-center">
@@ -180,6 +181,7 @@
 <script setup lang="ts">
 import { pb } from '@/pocketbase/pocket';
 import { ref, onMounted } from 'vue';
+import { format, differenceInDays } from 'date-fns';
 
 export interface Task {
   id: string; 
@@ -187,6 +189,8 @@ export interface Task {
   status: string; 
   userID: string;
   updatedAt: string | null; 
+  category: string; 
+  deadline: string | null; 
 }
 
 const tasks = ref<Task[]>([]);
@@ -202,6 +206,8 @@ const getAllTasks = async() => {
       status: record.status || '',
       userID: record.userID || '',
       updatedAt: record.updatedAt || null,
+      category: record.category ,
+      deadline: record.deadline || null,
     }));
     console.log(tasks.value);
   } catch (error) {
@@ -209,6 +215,19 @@ const getAllTasks = async() => {
   } finally {
   }
 }
+
+const formatDeadline = (deadline: string | null): string => {
+  if (!deadline) return '';
+
+  const deadlineDate = new Date(deadline);
+  const currentDate = new Date();
+
+  const daysRemaining = differenceInDays(deadlineDate, currentDate);
+
+  const formattedDeadline = format(deadlineDate, 'dd/MM/yyyy');
+
+  return `${formattedDeadline}\n${daysRemaining} jours restants`;
+};
 
 onMounted(() => {
   getAllTasks()
