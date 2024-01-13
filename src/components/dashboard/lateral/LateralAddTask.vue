@@ -101,6 +101,15 @@
                       for="price" 
                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
+                      Ajouter une deadline
+                    </label>
+                    <VueDatePicker v-model="date" format="E"></VueDatePicker>
+                  </div>
+                  <div class="col-span-2">
+                    <label 
+                      for="price" 
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
                       Ajouter un collaborateur
                     </label>
                     <input 
@@ -118,9 +127,6 @@
                       placeholder="Le nom du collaborateur" 
                       required
                     >
-                  </div>
-                  <div class="col-span-2">
-                    <VueDatePicker v-model="date" format="E"></VueDatePicker>
                   </div>
                   <div class="col-span-2">
                     <label 
@@ -177,6 +183,7 @@ const userStore = useUserStore();
 
 console.log(userStore.userID);
 pb.autoCancellation(false);
+
 
 const isSubmit = ref(false)
 
