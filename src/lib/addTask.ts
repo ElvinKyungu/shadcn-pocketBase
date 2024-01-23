@@ -11,7 +11,7 @@ const getAllUsers = async (): Promise<FullUsers[]> => {
       id: userRecord.id,
       name: userRecord.name || '',
       email: userRecord.email || '',
-      picture: userRecord.picture || null,
+      picture: userRecord.avatar || null,
     }));
     return users;
   } catch (error) {
