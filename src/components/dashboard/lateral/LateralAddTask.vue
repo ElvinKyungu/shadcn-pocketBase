@@ -184,9 +184,7 @@ const userStore = useUserStore();
 console.log(userStore.userID);
 pb.autoCancellation(false);
 
-
 const isSubmit = ref(false)
-
 
 const date = ref(new Date());
 const emits = defineEmits();
