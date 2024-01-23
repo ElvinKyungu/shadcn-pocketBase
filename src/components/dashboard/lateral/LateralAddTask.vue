@@ -127,12 +127,31 @@
                       " 
                       placeholder="Le nom du collaborateur" 
                       required
-                    > <br/>
-                    <ul v-if="showSuggestions">
+                    > 
+                      <div 
+                        v-if="selectedUsers.length >0"
+                        class="flex -space-x-4 rtl:space-x-reverse my-3">
+                        <img 
+                        v-for="selectedUser in selectedUsers" 
+                        :key="selectedUser.id" 
+                        class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800" 
+                        :src="selectedUser.picture || 'https://flowbite.com/docs/images/people/profile-picture-5.jpg'" 
+                        alt=""
+                      >
+                      <a 
+                        v-if="selectedUsers.length > 0" 
+                        @click="clearSelectedUsers"
+                        class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-red-500 border-2 border-white rounded-full hover:bg-red-400 dark:border-gray-800 cursor-pointer"
+                      >
+                        X
+                      </a>
+                    </div>
+                    <ul v-if="showSuggestions" class="border-1 border mt-3 p-4 rounded-xl">
                       <li 
                         v-for="user in filteredUsers" 
                         :key="user.id" 
                         @click="selectUser(user)"
+                        class="cursor-pointer"
                       >
                         {{ user.name }}
                       </li>
@@ -219,6 +238,7 @@ const newTask = ref({
 });
 
 const users = ref<FullUsers[]>([]);
+const selectedUsers = ref<FullUsers[]>([]);
 
 async function fetchUsers() {
   try {
@@ -246,8 +266,11 @@ const handleInputChange = () => {
 };
 
 const selectUser = (user: FullUsers) => {
+  selectedUsers.value.push(user);
   showSuggestions.value = false;
-  console.log(user.name)
+};
+const clearSelectedUsers = () => {
+  selectedUsers.value = [];
 };
 
 const validateForm = () => {
