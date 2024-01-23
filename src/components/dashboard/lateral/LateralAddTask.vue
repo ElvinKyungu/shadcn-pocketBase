@@ -114,6 +114,7 @@
                     </label>
                     <input 
                       v-model="newTask.collaborator"
+                      @input="handleInputChange"
                       type="text" 
                       name="name" 
                       id="name" 
@@ -126,7 +127,12 @@
                       " 
                       placeholder="Le nom du collaborateur" 
                       required
-                    >
+                    > <br/>
+                    <ul v-if="showSuggestions">
+                      <li v-for="user in filteredUsers" :key="user.id" @click="selectUser(user)">
+                        {{ user.name }}
+                      </li>
+                    </ul>
                   </div>
                   <div class="col-span-2">
                     <label 
@@ -177,7 +183,7 @@ import {FullUsers}  from '@/types/addTask.ts';
 //import { fr } from 'date-fns/locale';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { defineEmits } from "vue";
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 import { useUserStore } from '@/stores/store';
 import Spinner from '@/components/Spinner.vue'
 
@@ -217,6 +223,24 @@ async function fetchUsers() {
     console.error(error);
   }
 }
+const searchInput = ref('');
+const showSuggestions = ref(false);
+
+// Filter users based on the search input
+const filteredUsers = computed(() => {
+  return users.value.filter(user =>
+    user.name.toLowerCase().includes(searchInput.value.toLowerCase())
+  );
+});
+
+const handleInputChange = () => {
+  showSuggestions.value = true;
+};
+
+const selectUser = (user: FullUsers) => {
+  searchInput.value = user.name;
+  showSuggestions.value = false;
+};
 
 const validateForm = () => {
   if (
@@ -256,6 +280,7 @@ watch(() => userStore.userID, (newValue, oldValue) => {
   console.log('Ancienne valeur de userID :', oldValue);
   newTask.value.userID = newValue;
 });
+
 onMounted(fetchUsers);
 
 </script>@/lib/addTask
