@@ -114,7 +114,7 @@
                     </label>
                     <input 
                       v-model="newTask.collaborator"
-                      @input="handleInputChange"
+                      @input="handleInputChange()"
                       type="text" 
                       name="name" 
                       id="name" 
@@ -129,9 +129,14 @@
                       required
                     > <br/>
                     <ul v-if="showSuggestions">
-                      <li v-for="user in filteredUsers" :key="user.id" @click="selectUser(user)">
+                      <li 
+                        v-for="user in filteredUsers" 
+                        :key="user.id" 
+                        @click="selectUser(user)"
+                      >
                         {{ user.name }}
                       </li>
+                      <li v-if="filteredUsers.length === 0">Aucun utilisateur trouvé</li>
                     </ul>
                   </div>
                   <div class="col-span-2">
@@ -223,14 +228,14 @@ async function fetchUsers() {
     console.error(error);
   }
 }
-const searchInput = ref('');
+
 const showSuggestions = ref(false);
 
 // Filter users based on the search input
 const filteredUsers = computed(() => {
-  const searchTerm = searchInput.value.toLowerCase().trim();
+  const searchTerm = newTask.value.collaborator.toLowerCase().trim();
+  console.log(searchTerm)
   if (!searchTerm) return [];
-
   return users.value.filter(user =>
     user.name.toLowerCase().includes(searchTerm)
   );
@@ -241,8 +246,8 @@ const handleInputChange = () => {
 };
 
 const selectUser = (user: FullUsers) => {
-  searchInput.value = user.name;
   showSuggestions.value = false;
+  console.log(user.name)
 };
 
 const validateForm = () => {
