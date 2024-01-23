@@ -172,10 +172,12 @@
 <script setup lang="ts">
 import VueDatePicker from '@vuepic/vue-datepicker';
 import {pb} from '@/pocketbase/pocket';
+import {getAllUsers}  from '@/lib/addTask';
+import {FullUsers}  from '@/types/addTask.ts';
 //import { fr } from 'date-fns/locale';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { defineEmits } from "vue";
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useUserStore } from '@/stores/store';
 import Spinner from '@/components/Spinner.vue'
 
@@ -204,6 +206,17 @@ const newTask = ref({
   collaborator:'',
   description:''
 });
+
+const users = ref<FullUsers[]>([]);
+
+async function fetchUsers() {
+  try {
+    users.value = await getAllUsers();
+    console.log(users.value); 
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 const validateForm = () => {
   if (
@@ -243,5 +256,6 @@ watch(() => userStore.userID, (newValue, oldValue) => {
   console.log('Ancienne valeur de userID :', oldValue);
   newTask.value.userID = newValue;
 });
+onMounted(fetchUsers);
 
-</script>
+</script>@/lib/addTask
