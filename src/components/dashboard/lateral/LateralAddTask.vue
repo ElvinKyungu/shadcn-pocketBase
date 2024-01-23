@@ -228,8 +228,11 @@ const showSuggestions = ref(false);
 
 // Filter users based on the search input
 const filteredUsers = computed(() => {
+  const searchTerm = searchInput.value.toLowerCase().trim();
+  if (!searchTerm) return [];
+
   return users.value.filter(user =>
-    user.name.toLowerCase().includes(searchInput.value.toLowerCase())
+    user.name.toLowerCase().includes(searchTerm)
   );
 });
 
