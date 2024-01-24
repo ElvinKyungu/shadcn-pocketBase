@@ -90,7 +90,7 @@
                         dark:focus:border-primary-500
                       "
                     >
-                      <option selected>Sélectionner la categorie</option>
+                      <option value="" disabled selected hidden>Sélectionner la categorie</option>
                       <option value="fun">Fun</option>
                       <option value="important">Important</option>
                       <option value="divertissement">Divertissement</option>
