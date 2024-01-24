@@ -227,15 +227,7 @@ const closeModal = () => {
 
 const newTaskName = ref('');
 const errorMessage = ref('');
-const newTask = ref({
-  name: '',
-  status: 'draft',
-  userID: userStore.userID, 
-  updatedAt: null,
-  category:'',
-  collaborator:'',
-  description:''
-});
+
 
 const users = ref<FullUsers[]>([]);
 const selectedUsers = ref<FullUsers[]>([]);
