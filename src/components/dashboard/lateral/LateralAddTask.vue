@@ -42,7 +42,7 @@
               </button>
             </div>
             <div class="p-4 md:p-5 space-y-4">
-              <form class="p-4 md:p-5">
+              <form class="p-4 md:p-5" @submit.prevent="addNewTaskLoc">
                 <div class="grid gap-4 mb-4 grid-cols-2">
                   <div class="col-span-2">
                     <label 
@@ -80,6 +80,7 @@
                       Category
                     </label>
                     <select 
+                      v-model="newTask.category"
                       id="category" 
                       class="
                         bg-gray-50 border border-gray-300 text-gray-900 text-sm 
@@ -103,7 +104,7 @@
                     >
                       Ajouter une deadline
                     </label>
-                    <VueDatePicker v-model="date" format="E"></VueDatePicker>
+                    <VueDatePicker v-model="newTask.deadline" format="E"></VueDatePicker>
                   </div>
                   <div class="col-span-2">
                     <label 
@@ -114,7 +115,6 @@
                     </label>
                     <input 
                       v-model="newTask.collaborator"
-                      @input="handleInputChange()"
                       type="text" 
                       name="name" 
                       id="name" 
@@ -166,6 +166,7 @@
                       La description
                     </label>
                     <textarea 
+                      v-model="newTask.description"
                       id="description" 
                       rows="4" 
                       class="
@@ -186,7 +187,7 @@
             </div>
             <div class="flex items-end justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
               <button 
-                @click="addNewTask()"
+                @click="addNewTaskLoc"
                 type="submit" 
                 class="text-gray-900 inline-flex items-center bg-green-200 hover:bg-green-300 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
@@ -230,13 +231,13 @@ const newTask = ref<NewTask>({
   userID: userStore.userID as string,
   updatedAt: null,
   category: '',
+  deadline: new Date(),
   collaborator: '',
   description: ''
 });
 
 const isSubmit = ref(false)
 const errorMessage = ref('');
-const date = ref(new Date());
 
 const emits = defineEmits();
 
@@ -256,5 +257,8 @@ async function fetchUsers() {
   }
 }
 
+async function addNewTaskLoc (){
+  console.log(newTask.value);
+}
 onMounted(fetchUsers);
 </script>

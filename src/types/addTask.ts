@@ -15,6 +15,7 @@ export interface NewTask {
   userID: string | null; 
   updatedAt: null;
   category: string;
+  deadline: Date;
   collaborator: string;
   description: string;
 }
@@ -25,6 +26,7 @@ export const initialNewTask: NewTask = {
   userID: userStore.userID as string,
   updatedAt: null,
   category: '',
+  deadline: new Date(),
   collaborator: '',
   description: ''
 };

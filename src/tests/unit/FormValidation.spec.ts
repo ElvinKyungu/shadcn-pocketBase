@@ -2,7 +2,7 @@ import {ref} from 'vue'
 import {NewTask} from '@/types/addTask.ts'
 
 
-const errorMessage = ref()
+const errorMessage = ref('')
 
 export const validateForm = (task: NewTask) => {
   if (

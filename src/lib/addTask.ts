@@ -49,6 +49,8 @@ const addNewTask = async () => {
     } else {
       console.error("Impossible d'ajouter une tâche sans ID d'utilisateur.");
     }
+  }else{
+    console.log("Problem there");
   }
 };
 
