@@ -104,7 +104,7 @@
                     >
                       Ajouter une deadline
                     </label>
-                    <VueDatePicker v-model="newTask.deadline" format="E"></VueDatePicker>
+                    <VueDatePicker v-model="selectedDate" format="E"></VueDatePicker>
                   </div>
                   <div class="col-span-2">
                     <label 
@@ -220,20 +220,23 @@ import { useUserStore } from '@/stores/store';
 import Spinner from '@/components/Spinner.vue'
 import {NewTask} from '@/types/addTask.ts'
 import { validateForm } from '@/tests/unit/FormValidation.spec';
+import { format } from 'date-fns';
 
 const userStore = useUserStore();
 
 console.log(userStore.userID);
 pb.autoCancellation(false);
 
-const date = new Date()
+const date = new Date();
+
+const selectedDate = ref(date);
 const newTask = ref<NewTask>({
   name: '',
   status: 'draft',
-  updatedAt: date,
+  updatedAt: '',
   userID: userStore.userID as string,
   category: '',
-  deadline: date,
+  deadline: '',
   description: '',
 });
 
@@ -261,7 +264,11 @@ async function fetchUsers() {
 async function addNewTaskLoc (){
   if (validateForm(newTask.value)){
     if(userStore.userID !== null){
-      console.log('Hello');
+      const formattedDeadline: string = format(selectedDate.value, "yyyy-MM-dd HH:mm:ss");
+      const formattedupdatedAt: string = format(date, "yyyy-MM-dd HH:mm:ss");
+
+      newTask.value.deadline = formattedDeadline
+      newTask.value.updatedAt = formattedupdatedAt
       addNewTask(newTask.value)
     }else{
       userStore.clearUserData()

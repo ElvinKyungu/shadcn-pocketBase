@@ -9,10 +9,8 @@ export interface NewTask {
   name: string;
   status: 'draft';
   userID: string | null; 
-  updatedAt: Date;
+  updatedAt: string;
   category: string;
-  deadline: Date;
-  //collaborator: string;
+  deadline: string;
   description: string;
 }
-
