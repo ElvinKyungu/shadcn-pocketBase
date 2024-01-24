@@ -272,6 +272,7 @@ async function addNewTaskLoc (){
 
       newTask.value.deadline = formattedDeadline
       newTask.value.updatedAt = formattedupdatedAt
+      console.log(newTask.value.userID);
       addNewTaskTEST(newTask.value)
     }else{
       userStore.clearUserData()

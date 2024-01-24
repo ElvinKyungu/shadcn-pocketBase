@@ -2,11 +2,12 @@ import { pb } from '@/pocketbase/pocket';
 import { NewTask } from '@/types/addTask.ts';
 
 const addNewTaskTEST = async (newTask: NewTask) => {
+  console.log(newTask.userID);
   const data = {
     "name": newTask.name,
     "status": newTask.status,
     "updatedAt": newTask.updatedAt,
-    "userID": "4w3769t9z89ff0p",
+    "userID": newTask.userID,
     "category": newTask.category,
     "deadline": newTask.deadline,
     "description": newTask.description
