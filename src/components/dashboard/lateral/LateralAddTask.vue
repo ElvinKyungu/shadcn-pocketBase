@@ -219,6 +219,7 @@ import { ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores/store';
 import Spinner from '@/components/Spinner.vue'
 import {NewTask} from '@/types/addTask.ts'
+import { validateForm } from '@/tests/unit/FormValidation.spec';
 
 const userStore = useUserStore();
 
@@ -229,12 +230,11 @@ const date = new Date()
 const newTask = ref<NewTask>({
   name: '',
   status: 'draft',
-  userID: userStore.userID as string,
   updatedAt: date,
+  userID: userStore.userID as string,
   category: '',
   deadline: date,
-  collaborator: '',
-  description: ''
+  description: '',
 });
 
 const isSubmit = ref(false)
@@ -259,7 +259,16 @@ async function fetchUsers() {
 }
 
 async function addNewTaskLoc (){
-  console.log(newTask.value);
+  if (validateForm(newTask.value)){
+    if(userStore.userID !== null){
+      console.log('Hello');
+      addNewTask(newTask.value)
+    }else{
+      userStore.clearUserData()
+    }
+  }else{
+    errorMessage.value = "Tous les champs sont obligatoires"
+  }
 }
 onMounted(fetchUsers);
 </script>

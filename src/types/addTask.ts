@@ -16,7 +16,7 @@ export interface NewTask {
   updatedAt: Date;
   category: string;
   deadline: Date;
-  collaborator: string;
+  //collaborator: string;
   description: string;
 }
 
@@ -27,6 +27,6 @@ export const initialNewTask: NewTask = {
   updatedAt: new Date(),
   category: '',
   deadline: new Date(),
-  collaborator: '',
+  //collaborator: '',
   description: ''
 };

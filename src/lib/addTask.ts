@@ -1,9 +1,8 @@
-import { FullUser, initialNewTask } from '@/types/addTask.ts';
+import { FullUser, NewTask } from '@/types/addTask.ts';
 import { pb } from '@/pocketbase/pocket';
-import { validateForm } from '@/tests/unit/FormValidation.spec';
+
 import { ref, computed } from 'vue'
 
-const isSubmit = ref(false);
 const users = ref<FullUser[]>([]);
 const selectedUsers = ref<FullUser[]>([]);
 const showSuggestions = ref(false);
@@ -27,42 +26,26 @@ const getAllUsers = async (): Promise<FullUser[]> => {
   }
 };
 
-const addNewTask = async () => {
-  if (validateForm(initialNewTask)) {
-    isSubmit.value = true;
-
-    if (initialNewTask.userID !== null) {
-      try {
-        isSubmit.value = true;
-
-        // Creating a new task using the initialNewTask object
-        const record = await pb.collection('tasks').create(initialNewTask);
-        console.log(record);
-
-        // Réinitialisation du tableau
-        initialNewTask.name = '';
-        isSubmit.value = false;
-      } catch (error) {
-        isSubmit.value = false;
-        console.error("Une erreur s'est produite " + error);
-      }
-    } else {
-      console.error("Impossible d'ajouter une tâche sans ID d'utilisateur.");
-    }
-  }else{
-    console.log("Problem there");
+const addNewTask = async (newTask: NewTask ) => {
+  console.log(newTask);
+  try {
+    const record = await pb.collection('tasks').create(newTask);
+    console.log(record);
+    newTask.name = '';
+  } catch (error) {
+    console.error("Une erreur s'est produite " + error);
   }
-};
+}
 
 // Filter users based on the search input
 const filteredUsers = computed(() => {
-  const searchTerm = initialNewTask.collaborator.toLowerCase().trim();
-  console.log(searchTerm)
+  //const searchTerm = NewTask.collaborator.toLowerCase().trim();
+  //console.log(searchTerm)
 
-  if (!searchTerm) return [];
-  return users.value.filter(user =>
-    user.name.toLowerCase().includes(searchTerm)
-  );
+  //if (!searchTerm) return [];
+  //return users.value.filter(user =>
+  //  user.name.toLowerCase().includes(searchTerm)
+  //);
 });
 
 const handleInputChange = () => {
