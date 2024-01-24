@@ -27,9 +27,18 @@ const getAllUsers = async (): Promise<FullUser[]> => {
 };
 
 const addNewTask = async (newTask: NewTask ) => {
+  const data = {
+    "name": "test",
+    "status": "draft",
+    "updatedAt": "2022-01-01 10:00:00.123Z",
+    "userID": newTask.userID,
+    "category": "important",
+    "deadline": "2022-01-01 10:00:00.123Z",
+    "description": "test"
+  };
   console.log(newTask);
   try {
-    const record = await pb.collection('tasks').create(newTask);
+    const record = await pb.collection('tasks').create(data);
     console.log(record);
     newTask.name = '';
   } catch (error) {

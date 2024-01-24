@@ -212,6 +212,9 @@ import {
   selectUser, 
   clearSelectedUsers
 }  from '@/lib/addTask';
+import {
+  addNewTaskTEST
+}  from '@/lib/test';
 import {FullUser}  from '@/types/addTask.ts';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { defineEmits } from "vue";
@@ -269,7 +272,7 @@ async function addNewTaskLoc (){
 
       newTask.value.deadline = formattedDeadline
       newTask.value.updatedAt = formattedupdatedAt
-      addNewTask(newTask.value)
+      addNewTaskTEST(newTask.value)
     }else{
       userStore.clearUserData()
     }
