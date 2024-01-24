@@ -225,13 +225,14 @@ const userStore = useUserStore();
 console.log(userStore.userID);
 pb.autoCancellation(false);
 
+const date = new Date()
 const newTask = ref<NewTask>({
   name: '',
   status: 'draft',
   userID: userStore.userID as string,
-  updatedAt: null,
+  updatedAt: date,
   category: '',
-  deadline: new Date(),
+  deadline: date,
   collaborator: '',
   description: ''
 });
