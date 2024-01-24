@@ -1,7 +1,3 @@
-import { useUserStore } from '@/stores/store';
-
-const userStore = useUserStore();
-
 export interface FullUser {
   id: string;
   name: string;
@@ -20,13 +16,3 @@ export interface NewTask {
   description: string;
 }
 
-export const initialNewTask: NewTask = {
-  name: '',
-  status: 'draft',
-  userID: userStore.userID as string,
-  updatedAt: new Date(),
-  category: '',
-  deadline: new Date(),
-  //collaborator: '',
-  description: ''
-};
