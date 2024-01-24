@@ -202,30 +202,47 @@
 <script setup lang="ts">
 import VueDatePicker from '@vuepic/vue-datepicker';
 import {pb} from '@/pocketbase/pocket';
-import {getAllUsers}  from '@/lib/addTask';
+import {
+  getAllUsers, 
+  addNewTask, 
+  showSuggestions, 
+  filteredUsers, 
+  handleInputChange, 
+  selectUser, 
+  clearSelectedUsers
+}  from '@/lib/addTask';
 import {FullUser}  from '@/types/addTask.ts';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { defineEmits } from "vue";
 import { ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores/store';
 import Spinner from '@/components/Spinner.vue'
+import {NewTask} from '@/types/addTask.ts'
 
 const userStore = useUserStore();
 
 console.log(userStore.userID);
 pb.autoCancellation(false);
 
-const isSubmit = ref(false)
+const newTask = ref<NewTask>({
+  name: '',
+  status: 'draft',
+  userID: userStore.userID as string,
+  updatedAt: null,
+  category: '',
+  collaborator: '',
+  description: ''
+});
 
+const isSubmit = ref(false)
+const errorMessage = ref('');
 const date = ref(new Date());
+
 const emits = defineEmits();
 
 const closeModal = () => {
   emits("close-modal");
 };
-
-const errorMessage = ref('');
-
 
 const users = ref<FullUser[]>([]);
 const selectedUsers = ref<FullUser[]>([]);

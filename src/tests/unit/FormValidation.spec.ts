@@ -4,9 +4,9 @@ import {NewTask} from '@/types/addTask.ts'
 
 const errorMessage = ref()
 
-export const validateForm = (task: NewTask, newTaskName: string) => {
+export const validateForm = (task: NewTask) => {
   if (
-    !newTaskName.trim() || task.category === null ||
+    !task.name.trim() || task.category === null ||
     !task.collaborator.trim() || !task.description.trim()
   ) {
     errorMessage.value = "Veuillez renseigner tous les champs";

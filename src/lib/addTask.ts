@@ -14,7 +14,6 @@ const getAllUsers = async (): Promise<FullUser[]> => {
       sort: '-created',
     });
 
-    // Mapping user records to FullUser objects
     const users: FullUser[] = userRecords.map((userRecord) => ({
       id: userRecord.id,
       name: userRecord.name || '',
@@ -29,14 +28,12 @@ const getAllUsers = async (): Promise<FullUser[]> => {
 };
 
 const addNewTask = async () => {
-  // Assuming initialNewTask is a reactive object, not a constant
-  if (validateForm(initialNewTask, initialNewTask.name)) {
+  if (validateForm(initialNewTask)) {
     isSubmit.value = true;
 
     if (initialNewTask.userID !== null) {
       try {
         isSubmit.value = true;
-        initialNewTask.name = initialNewTask.name;
 
         // Creating a new task using the initialNewTask object
         const record = await pb.collection('tasks').create(initialNewTask);
@@ -61,7 +58,6 @@ const filteredUsers = computed(() => {
   console.log(searchTerm)
 
   if (!searchTerm) return [];
-  
   return users.value.filter(user =>
     user.name.toLowerCase().includes(searchTerm)
   );
