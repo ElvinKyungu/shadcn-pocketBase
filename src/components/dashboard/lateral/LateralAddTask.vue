@@ -203,11 +203,10 @@
 import VueDatePicker from '@vuepic/vue-datepicker';
 import {pb} from '@/pocketbase/pocket';
 import {getAllUsers}  from '@/lib/addTask';
-import {FullUsers}  from '@/types/addTask.ts';
-//import { fr } from 'date-fns/locale';
+import {FullUser}  from '@/types/addTask.ts';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { defineEmits } from "vue";
-import { ref, watch, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores/store';
 import Spinner from '@/components/Spinner.vue'
 
@@ -225,12 +224,11 @@ const closeModal = () => {
   emits("close-modal");
 };
 
-const newTaskName = ref('');
 const errorMessage = ref('');
 
 
-const users = ref<FullUsers[]>([]);
-const selectedUsers = ref<FullUsers[]>([]);
+const users = ref<FullUser[]>([]);
+const selectedUsers = ref<FullUser[]>([]);
 
 async function fetchUsers() {
   try {
@@ -241,80 +239,5 @@ async function fetchUsers() {
   }
 }
 
-const showSuggestions = ref(false);
-
-// Filter users based on the search input
-const filteredUsers = computed(() => {
-  const searchTerm = newTask.value.collaborator.toLowerCase().trim();
-  console.log(searchTerm)
-  if (!searchTerm) return [];
-  return users.value.filter(user =>
-    user.name.toLowerCase().includes(searchTerm)
-  );
-});
-
-const handleInputChange = () => {
-  showSuggestions.value = true;
-};
-
-const selectUser = async (user: FullUsers) => {
-  user.picture = await loadUserPicture(user.id);
-  user.pictureLoaded = true;
-
-  selectedUsers.value.push(user);
-  showSuggestions.value = false;
-};
-
-const loadUserPicture = async (userId: string): Promise<string> => {
-  return new Promise(resolve => {
-    const user = users.value.find(u => u.id === userId);
-    resolve(user?.picture || 'profile_default.jpg');
-  });
-};
-
-const clearSelectedUsers = () => {
-  selectedUsers.value = [];
-};
-
-const validateForm = () => {
-  if (
-      !newTaskName.value.trim() || newTask.value.category === null || 
-      !newTask.value.collaborator.trim() || !newTask.value.description.trim()
-    ) {
-    errorMessage.value = "Veuillez renseigner tous les champs";
-    return false;
-  }
-  return true;
-}
-
-const addNewTask = async()=>{
-  if(validateForm()){
-    isSubmit.value = true;
-    if (newTask.value.userID !== null) {
-      try {
-        isSubmit.value = true;
-        newTask.value.name = newTaskName.value;
-        const record = await pb.collection('tasks').create(newTask.value);
-        console.log(record);
-        //Réinitialisation du tableau
-        newTaskName.value = '';
-
-        isSubmit.value = false;
-      } catch (error) {
-        isSubmit.value = false;
-        console.log("Une erreur s'est produite " + error);
-      }
-    } else {
-      console.error("Impossible d'ajouter une tâche sans ID d'utilisateur.");
-    }
-  }
-}
-watch(() => userStore.userID, (newValue, oldValue) => {
-  console.log('Nouvelle valeur de userID :', newValue);
-  console.log('Ancienne valeur de userID :', oldValue);
-  newTask.value.userID = newValue;
-});
-
 onMounted(fetchUsers);
-
 </script>

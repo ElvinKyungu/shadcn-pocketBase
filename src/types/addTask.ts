@@ -7,7 +7,6 @@ export interface FullUser {
   name: string;
   email: string;
   picture: string | null;
-  pictureLoaded?: boolean;
 }
 
 export interface NewTask {
@@ -20,7 +19,7 @@ export interface NewTask {
   description: string;
 }
 
-const initialNewTask: NewTask = {
+export const initialNewTask: NewTask = {
   name: '',
   status: 'draft',
   userID: userStore.userID as string,
@@ -29,5 +28,3 @@ const initialNewTask: NewTask = {
   collaborator: '',
   description: ''
 };
-
-export default initialNewTask;
