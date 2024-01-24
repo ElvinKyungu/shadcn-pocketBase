@@ -135,7 +135,7 @@
                         v-for="selectedUser in selectedUsers" 
                         :key="selectedUser.id" 
                         class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800" 
-                        :src="selectedUser.picture || 'https://flowbite.com/docs/images/people/profile-picture-5.jpg'" 
+                        :src="selectedUser.picture || '/ek.jpeg'" 
                         alt=""
                       >
                       <a 
@@ -265,10 +265,23 @@ const handleInputChange = () => {
   showSuggestions.value = true;
 };
 
-const selectUser = (user: FullUsers) => {
+const selectUser = async (user: FullUsers) => {
+  user.picture = await loadUserPicture(user.id);
+  user.pictureLoaded = true;
+
   selectedUsers.value.push(user);
   showSuggestions.value = false;
 };
+
+const loadUserPicture = async (userId: string): Promise<string> => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const user = users.value.find(u => u.id === userId);
+      resolve(user?.picture || 'profile_default.jpg');
+    }, 1000);
+  });
+};
+
 const clearSelectedUsers = () => {
   selectedUsers.value = [];
 };
@@ -278,7 +291,7 @@ const validateForm = () => {
       !newTaskName.value.trim() || newTask.value.category === null || 
       !newTask.value.collaborator.trim() || !newTask.value.description.trim()
     ) {
-      errorMessage.value = "Veuillez renseigner tous les champs";
+    errorMessage.value = "Veuillez renseigner tous les champs";
     return false;
   }
   return true;

@@ -3,4 +3,5 @@ export interface FullUsers {
   name: string;
   email: string;
   picture: string | null;
+  pictureLoaded?: boolean;
 }
