@@ -275,10 +275,8 @@ const selectUser = async (user: FullUsers) => {
 
 const loadUserPicture = async (userId: string): Promise<string> => {
   return new Promise(resolve => {
-    setTimeout(() => {
-      const user = users.value.find(u => u.id === userId);
-      resolve(user?.picture || 'profile_default.jpg');
-    }, 1000);
+    const user = users.value.find(u => u.id === userId);
+    resolve(user?.picture || 'profile_default.jpg');
   });
 };
 
@@ -327,4 +325,4 @@ watch(() => userStore.userID, (newValue, oldValue) => {
 
 onMounted(fetchUsers);
 
-</script>@/lib/addTask
+</script>
