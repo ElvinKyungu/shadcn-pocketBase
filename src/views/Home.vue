@@ -91,7 +91,7 @@ import Spinner from '@/components/Spinner.vue';
 import {pb} from '@/pocketbase/pocket';
 import { ref } from 'vue';
 import { userLogin } from '@/types/user';
-import { loginUserWithGoogle } from '@/lib/auth';
+import { getUserDataWithGoogle } from '@/lib/auth';
 
 const userLoginLoc = ref<userLogin>({
   email: '',
@@ -120,12 +120,7 @@ const loginWithLinkedin = async ()=>{
 //Login with Google provider
 const loginWithGoogle = async () =>{
   try{
-    isLogin.value = true;
-    const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
-    LoginUserWithGoogle()
-    console.log(authData.meta);
-
-    userStore.setUserData({ userID: authData.meta.id, name: authData.meta.name, token: authData.token });
+    getUserDataWithGoogle()
     //router.push('/user')  
   }catch(error){
     isLogin.value = false; 
@@ -138,8 +133,7 @@ const loginWithGoogle = async () =>{
 //Login with formular
 const loginUserLoc = async () => {
   try {
-    isLogin.value = true; 
-    
+    isLogin.value = true;
   } catch (error) {
     isLogin.value = false; 
     console.error('Erreur lors de la connexion', error);
