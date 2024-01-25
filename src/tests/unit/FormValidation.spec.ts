@@ -1,9 +1,8 @@
 import {NewTask} from '@/types/addTask.ts'
-import { User } from '@/types/user'
+import { createUSer } from '@/types/user'
 
 
 export const validateForm = (task: NewTask) => {
-  console.log(task);
   if (
     !task.name.trim() || 
     task.category === ""  || 
@@ -14,6 +13,13 @@ export const validateForm = (task: NewTask) => {
   return true;
 }
 
-export const validateFormSignUp = (userInfo: User) =>{
-
+export const validateFormSignUp = (userInfo: createUSer) =>{
+  if (
+    !userInfo.name.trim() || 
+    !userInfo.email.trim()  || 
+    !userInfo.username.trim()
+  ) {
+    return false;
+  }
+  return true;
 }
