@@ -36,7 +36,17 @@ const getUserDataWithGoogle = async () => {
   try{
     const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
     console.log(authData.meta);
-    //loginUserWithGoogle(authData)
+    if (authData && authData.meta) {
+      const passwordForGoogleUser = '';
+      await signupUser({
+        username: authData.meta.username,
+        name: authData.meta.name,
+        email: authData.meta.email,
+        password: passwordForGoogleUser,
+        passwordConfirm: passwordForGoogleUser,
+        avatar: authData.meta.avatar
+      });
+    }
   }catch(error){
     console.error('Erreur lors de la connexion', error);
   } finally {
