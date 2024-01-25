@@ -1,4 +1,5 @@
 import {NewTask} from '@/types/addTask.ts'
+import { User } from '@/types/user'
 
 
 export const validateForm = (task: NewTask) => {
@@ -11,4 +12,8 @@ export const validateForm = (task: NewTask) => {
     return false;
   }
   return true;
+}
+
+export const validateFormSignUp = (userInfo: User) =>{
+
 }

@@ -130,10 +130,10 @@ const loginGoogle = async () =>{
   try{
     isLogin.value = true; 
     const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
-    console.log(authData.meta.name);
+    console.log(authData.meta);
 
     userStore.setUserData({ userID: authData.meta.id, name: authData.meta.name, token: authData.token });
-    router.push('/user')  
+    //router.push('/user')  
   }catch(error){
     isLogin.value = false; 
     console.error('Erreur lors de la connexion', error);
