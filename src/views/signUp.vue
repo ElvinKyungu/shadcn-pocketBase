@@ -59,7 +59,7 @@
           <CardFooter>
             <Button 
               class="w-full p-7 text-lg" 
-              @click="signupUser()"
+              @click="signupUserLoc()"
               :class="{ 'pointer-events-none': isLogin, 'cursor-not-allowed': isLogin }"
             >
               <Spinner v-if="isLogin"/>
@@ -70,7 +70,6 @@
       </div>
     </div>
 </template>
-  
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
 import {
@@ -84,6 +83,32 @@ import {
 import { Input } from '@/components/ui/input';
 import Spinner from '@/components/Spinner.vue';
 import { ref } from 'vue';
+import { createUSer } from '@/types/user';
+import { validateFormSignUp } from '@/tests/unit/FormValidation.spec';
+import { signupUser } from '@/lib/signup';
+
+const isLogin = ref(false)
+const errorMessage = ref('')
 
 
+const newUser = ref<createUSer>({
+  username: '',
+  name: '',
+  email: '',
+  password: '',
+  passwordConfirm: '',
+  avatar: ''
+});
+
+const signupUserLoc = async ()=>{
+  if (validateFormSignUp(newUser.value)){
+    try{
+      signupUser(newUser.value)
+    }catch{
+
+    }
+  }else{
+    errorMessage.value = "Veuillez remplir tout les champs"
+  }
+}
 </script>

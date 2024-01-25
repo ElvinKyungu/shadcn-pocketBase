@@ -17,7 +17,8 @@ export const validateFormSignUp = (userInfo: createUSer) =>{
   if (
     !userInfo.name.trim() || 
     !userInfo.email.trim()  || 
-    !userInfo.username.trim()
+    !userInfo.username.trim()||
+    !userInfo.password.trim()
   ) {
     return false;
   }
