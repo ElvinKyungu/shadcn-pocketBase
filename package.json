@@ -16,6 +16,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "date-fns": "^3.1.0",
+    "generate-password": "^1.7.1",
     "gsap": "^3.12.4",
     "lucide-vue-next": "^0.294.0",
     "pinia": "^2.1.7",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
+    "@types/node": "^20.11.6",
     "@vitejs/plugin-vue": "^4.5.0",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",

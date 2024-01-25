@@ -2,6 +2,7 @@ import { pb } from "@/pocketbase/pocket";
 import { useUserStore } from "@/stores/store";
 import { createUSer, creatUserWithGoogle } from "@/types/user";
 import { useRouter } from "vue-router";
+import { generate } from 'generate-password';
 
 const userStore = useUserStore();
 const router = useRouter()
@@ -37,7 +38,13 @@ const getUserDataWithGoogle = async () => {
     const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
     console.log(authData.meta);
     if (authData && authData.meta) {
-      const passwordForGoogleUser = '';
+      const generator = require('generate-password');
+      const passwordForGoogleUser = generator.generate({
+        length: 10,
+        numbers: true
+      });
+      // 'uEyMTw32v9'
+      console.log(passwordForGoogleUser);
       await signupUser({
         username: authData.meta.username,
         name: authData.meta.name,
