@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="relative w-full h-screen">
       <div 
         class="h-screen relative flex items-center justify-center"
       >
@@ -65,6 +65,12 @@
               <Spinner v-if="isLogin"/>
               <span v-else>Inscrivez-vous</span>
             </Button>
+            <div
+              v-if="errorMessage !== ''"
+              class="my-3 text-center text-lg text-red-500"
+            >
+              <span>{{ errorMessage }}</span>
+            </div>
           </CardFooter>
         </Card>
       </div>
@@ -85,7 +91,7 @@ import Spinner from '@/components/Spinner.vue';
 import { ref } from 'vue';
 import { createUSer } from '@/types/user';
 import { validateFormSignUp } from '@/tests/unit/FormValidation.spec';
-import { signupUser } from '@/lib/signup';
+import { signupUser } from '@/lib/auth';
 
 const isLogin = ref(false)
 const errorMessage = ref('')
@@ -102,12 +108,15 @@ const newUser = ref<createUSer>({
 
 const signupUserLoc = async ()=>{
   if (validateFormSignUp(newUser.value)){
+    isLogin.value = true;
     try{
       signupUser(newUser.value)
     }catch{
-
+      isLogin.value = false;
+      errorMessage.value = "Une erreur s'est produite, veuillez ressayer"
     }
   }else{
+    isLogin.value = false;
     errorMessage.value = "Veuillez remplir tout les champs"
   }
 }

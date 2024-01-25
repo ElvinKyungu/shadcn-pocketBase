@@ -222,7 +222,7 @@ import { ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores/store';
 import Spinner from '@/components/Spinner.vue'
 import {NewTask} from '@/types/addTask.ts'
-import { validateForm } from '@/tests/unit/FormValidation.spec';
+import { validateFormTask } from '@/tests/unit/FormValidation.spec';
 import { format } from 'date-fns';
 
 const userStore = useUserStore();
@@ -265,7 +265,7 @@ async function fetchUsers() {
 }
 
 async function addNewTaskLoc (){
-  if (validateForm(newTask.value)){
+  if (validateFormTask(newTask.value)){
     if(userStore.userID !== null){
       const formattedDeadline: string = format(selectedDate.value, "yyyy-MM-dd HH:mm:ss");
       const formattedupdatedAt: string = format(date, "yyyy-MM-dd HH:mm:ss");

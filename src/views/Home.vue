@@ -18,7 +18,7 @@
               <GitHubIcon class="h-4 w-4" />
               Linkedin
             </Button>
-            <Button @click="loginGoogle()" class="text-lg p-7" variant="outline">
+            <Button @click="loginWithGoogle()" class="text-lg p-7" variant="outline">
               <svg role="img" viewBox="0 0 24 24" class="mr-2 h-4 w-4">
                 <path
                   fill="currentColor"
@@ -41,7 +41,7 @@
           <div class="grid gap-2">
             <Label for="email" class="text-lg">Email</Label>
             <Input 
-              v-model="user.mail"
+              v-model="userLoginLoc.email"
               class="p-7 focus:outline-none text-lg" 
               id="email" 
               type="email" 
@@ -51,7 +51,7 @@
           <div class="grid gap-2">
             <Label for="password">Mot de passe</Label>
             <Input
-              v-model="user.password"
+              v-model="userLoginLoc.password"
               class="p-7 focus:outline-none text-lg" 
               id="password" 
               type="password" 
@@ -62,7 +62,7 @@
         <CardFooter>
           <Button 
             class="w-full p-7 text-lg" 
-            @click="loginUser"
+            @click="loginUserLoc"
             :class="{ 'pointer-events-none': isLogin, 'cursor-not-allowed': isLogin }"
           >
             <Spinner v-if="isLogin"/>
@@ -90,24 +90,16 @@ import { Input } from '@/components/ui/input';
 import Spinner from '@/components/Spinner.vue';
 import {pb} from '@/pocketbase/pocket';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores/store';
+import { userLogin } from '@/types/user';
+import { loginUserWithGoogle } from '@/lib/auth';
 
-const router = useRouter()
-const userStore = useUserStore();
-
-interface User {
-  mail: string | null;
-  password: string | null;
-}
+const userLoginLoc = ref<userLogin>({
+  email: '',
+  password: ''
+})
 
 const isLogin = ref(false);
 const errorMessage = ref('');
-
-const user = ref<User>({
-  mail: null,
-  password: null,
-});
 
 const message = ref('Connectez-vous d\'un simple geste');
 
@@ -126,10 +118,11 @@ const loginWithLinkedin = async ()=>{
 }
 
 //Login with Google provider
-const loginGoogle = async () =>{
+const loginWithGoogle = async () =>{
   try{
-    isLogin.value = true; 
+    isLogin.value = true;
     const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
+    LoginUserWithGoogle()
     console.log(authData.meta);
 
     userStore.setUserData({ userID: authData.meta.id, name: authData.meta.name, token: authData.token });
@@ -143,17 +136,10 @@ const loginGoogle = async () =>{
 }
 
 //Login with formular
-const loginUser = async () => {
+const loginUserLoc = async () => {
   try {
     isLogin.value = true; 
-    const result = await pb.collection('users').authWithPassword(
-      user.value.mail || '',
-      user.value.password || '',
-    );
-    console.log(result);
-    message.value = 'Connecté avec succès!';
-    userStore.setUserData({ userID: result.record.id, name: result.record.name, token: result.token });
-    router.push('/user')
+    
   } catch (error) {
     isLogin.value = false; 
     console.error('Erreur lors de la connexion', error);

@@ -14,3 +14,7 @@ export interface creatUserWithGoogle{
   name: string;
   avatar: string;
 }
+export interface userLogin{
+  email: string;
+  password: string;
+}
