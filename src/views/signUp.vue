@@ -72,60 +72,18 @@
 </template>
   
 <script setup lang="ts">
-  import { Button } from '@/components/ui/button';
-  import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from '@/components/ui/card';
-  import { Input } from '@/components/ui/input';
-  import Spinner from '@/components/Spinner.vue';
-  import {pb} from '@/pocketbase/pocket';
-  import { ref } from 'vue';
-  import { useRouter } from 'vue-router'
-  import { useUserStore } from '@/stores/store';
-  
-  const router = useRouter()
-  const userStore = useUserStore();
-  
-  interface newUser {
-    username: string | null;
-    email: string | null;
-    emailVisibility: true;
-    password: string | null;
-    passwordConfirm: string | null;
-    name: string | null;
-  }
-  
-  const isLogin = ref(false);
-  const errorMessage = ref('');
-  
-  const newUser = ref<newUser>({
-    username: null,
-    email: null,
-    emailVisibility: true,
-    password: null,
-    passwordConfirm: null,
-    name: null,
-  });
-  
-  const signupUser = async () => {
-    newUser.value.passwordConfirm = newUser.value.password;
-    try {
-      isLogin.value = true; 
-      const result = await pb.collection('users').create(newUser.value);
-      console.log(result);
-      userStore.setUserData({ userID: result.id, name: result.name, token: result.token });
-      router.push('/user')
-    } catch (error) {
-      isLogin.value = false; 
-      console.error('Erreur lors de la connexion', error);
-      errorMessage.value = 'Erreur de connexion. Veuillez réessayer.'; 
-    } finally {
-      isLogin.value = false; 
-    }
-  };
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import Spinner from '@/components/Spinner.vue';
+import { ref } from 'vue';
+
+
 </script>
