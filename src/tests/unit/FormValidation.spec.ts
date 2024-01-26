@@ -1,5 +1,5 @@
 import {NewTask} from '@/types/addTask.ts'
-import { createUSer } from '@/types/user'
+import { createUSer, userLogin } from '@/types/user'
 
 
 export const validateFormTask = (task: NewTask) => {
@@ -24,11 +24,9 @@ export const validateFormSignUp = (userInfo: createUSer) =>{
   }
   return true;
 }
-export const validateFormLogin = (userInfo: createUSer) =>{
+export const validateFormLogin = (userInfo: userLogin) =>{
   if (
-    !userInfo.name.trim() || 
     !userInfo.email.trim()  || 
-    !userInfo.username.trim()||
     !userInfo.password.trim()
   ) {
     return false;

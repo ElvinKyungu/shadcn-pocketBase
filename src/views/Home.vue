@@ -92,6 +92,7 @@ import {pb} from '@/pocketbase/pocket';
 import { ref } from 'vue';
 import { userLogin } from '@/types/user';
 import { getUserDataWithGoogle, loginUser } from '@/lib/auth';
+import { validateFormLogin } from '@/tests/unit/FormValidation.spec';
 //import { useRouter } from "vue-router";
 
 //const router = useRouter()
@@ -134,15 +135,17 @@ const loginWithGoogle = async () =>{
 
 //Login with formular
 const loginUserLoc = async () => {
-  try {
+  if(validateFormLogin(userLoginLoc.value)){
     isLogin.value = true;
-    loginUser(userLoginLoc.value)
-  } catch (error) {
-    isLogin.value = false; 
-    console.error('Erreur lors de la connexion', error);
-    errorMessage.value = 'Erreur de connexion. Veuillez réessayer.'; 
-  } finally {
-    isLogin.value = false; 
+    try {
+      loginUser(userLoginLoc.value)
+    } catch (error) {
+      isLogin.value = false; 
+      console.error('Erreur lors de la connexion', error);
+      errorMessage.value = 'Erreur de connexion. Veuillez réessayer.'; 
+    } finally {
+      isLogin.value = false; 
+    }
   }
 };
 </script>
