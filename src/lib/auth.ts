@@ -1,10 +1,9 @@
 import { pb } from "@/pocketbase/pocket";
 import { useUserStore } from "@/stores/store";
 import { createUSer, creatUserWithGoogle, userLogin } from "@/types/user";
-import { useRouter } from "vue-router";
+import router from '@/routes';
 
 const userStore = useUserStore();
-const router = useRouter();
 
 const signupUser = async (newUser: createUSer) => {
   newUser.passwordConfirm = newUser.password;

@@ -110,9 +110,7 @@ import { ref } from 'vue';
 import { userLogin } from '@/types/user';
 import { getUserDataWithGoogle, loginUser } from '@/lib/auth';
 import { validateFormLogin } from '@/tests/unit/FormValidation.spec';
-//import { useRouter } from "vue-router";
 
-//const router = useRouter()
 
 const userLoginLoc = ref<userLogin>({
   email: '',
@@ -138,7 +136,6 @@ const loginWithLinkedin = async ()=>{
     isLogin.value = false; 
   }
 }
-
 //Login with Google provider
 const loginWithGoogle = async () =>{
   try{
@@ -151,7 +148,6 @@ const loginWithGoogle = async () =>{
     isLogin.value = false; 
   }
 }
-
 //Login with formular
 const loginUserLoc = async () => {
   isLogin.value = true;
@@ -168,5 +164,4 @@ const loginUserLoc = async () => {
     errorMessage.value = 'Veuillez remplir touts les champs.'; 
   }
 };
-
 </script>
