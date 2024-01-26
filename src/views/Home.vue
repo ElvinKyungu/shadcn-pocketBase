@@ -91,7 +91,7 @@ import Spinner from '@/components/Spinner.vue';
 import {pb} from '@/pocketbase/pocket';
 import { ref } from 'vue';
 import { userLogin } from '@/types/user';
-import { getUserDataWithGoogle } from '@/lib/auth';
+import { getUserDataWithGoogle, loginUser } from '@/lib/auth';
 //import { useRouter } from "vue-router";
 
 //const router = useRouter()
@@ -136,7 +136,7 @@ const loginWithGoogle = async () =>{
 const loginUserLoc = async () => {
   try {
     isLogin.value = true;
-    
+    loginUser(userLoginLoc.value)
   } catch (error) {
     isLogin.value = false; 
     console.error('Erreur lors de la connexion', error);

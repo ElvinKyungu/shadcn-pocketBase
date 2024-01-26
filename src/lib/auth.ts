@@ -1,6 +1,6 @@
 import { pb } from "@/pocketbase/pocket";
 import { useUserStore } from "@/stores/store";
-import { createUSer, creatUserWithGoogle } from "@/types/user";
+import { createUSer, creatUserWithGoogle, userLogin } from "@/types/user";
 import { useRouter } from "vue-router";
 
 const userStore = useUserStore();
@@ -45,8 +45,21 @@ const getUserDataWithGoogle = async () => {
   }
 };
 
+const loginUser = async(user: userLogin)=>{
+  try{
+    const userData = await pb.collection('users').authWithPassword(user.email, user.password);
+    console.log(userData);
+    //userStore.setUserData({ userID: userData.id, name: userData.name, token: userData.token });
+    //router.push('/user')
+  }catch(error){
+    console.error('Erreur lors de la connexion', error);
+  } finally {
+  }
+}
+
 export {
   signupUser,
   loginUserWithGoogle,
-  getUserDataWithGoogle
+  getUserDataWithGoogle,
+  loginUser
 };
