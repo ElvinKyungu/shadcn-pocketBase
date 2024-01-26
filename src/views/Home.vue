@@ -67,8 +67,25 @@
           >
             <Spinner v-if="isLogin"/>
             <span v-else>Connectez-vous</span>
-          </Button><br> <br>
-          <CardContent class="text-left">Si vous n'avez pas de compte, <RouterLink to="/inscription">inscrivez-vous</RouterLink> </CardContent>
+          </Button><br>
+          <div
+            v-if="errorMessage !== ''"
+            class="my-3 text-center text-lg text-red-500"
+          >
+            <span>{{ errorMessage }}</span>
+          </div>
+          <CardContent 
+            class="text-center text-lg"
+            :class="{ 'mt-4': errorMessage == ''}"
+          >
+            Si vous n'avez pas de compte, 
+            <RouterLink 
+              class="text-blue-700"
+              to="/inscription"
+            >
+              inscrivez-vous
+            </RouterLink> 
+          </CardContent>
         </CardFooter>
       </Card>
     </div>
@@ -115,6 +132,7 @@ const loginWithLinkedin = async ()=>{
     console.log(authData);
   }catch(error){
     isLogin.value = false; 
+    errorMessage.value = 'Erreur de connexion. Veuillez réessayer.';
     console.error('Erreur lors de la connexion', error);
   } finally {
     isLogin.value = false; 
@@ -128,6 +146,7 @@ const loginWithGoogle = async () =>{
   }catch(error){
     isLogin.value = false; 
     console.error('Erreur lors de la connexion', error);
+    errorMessage.value = 'Erreur de connexion. Veuillez réessayer.'; 
   } finally {
     isLogin.value = false; 
   }
@@ -146,6 +165,8 @@ const loginUserLoc = async () => {
     } finally {
       isLogin.value = false; 
     }
+  }else{
+    errorMessage.value = 'Veuillez remplir touts les champs.'; 
   }
 };
 </script>
