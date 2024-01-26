@@ -8,7 +8,6 @@ export interface createUSer {
 }
 
 export interface creatUserWithGoogle{
-  id: string;
   username: string;
   email: string;
   name: string;
