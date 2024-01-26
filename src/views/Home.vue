@@ -154,10 +154,11 @@ const loginWithGoogle = async () =>{
 
 //Login with formular
 const loginUserLoc = async () => {
+  isLogin.value = true;
   if(validateFormLogin(userLoginLoc.value)){
     isLogin.value = true;
     try {
-      loginUser(userLoginLoc.value)
+      loginUser(userLoginLoc.value);
     } catch (error) {
       isLogin.value = false; 
       console.error('Erreur lors de la connexion', error);
