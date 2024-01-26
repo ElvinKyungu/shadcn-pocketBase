@@ -4,7 +4,7 @@ import { createUSer, creatUserWithGoogle, userLogin } from "@/types/user";
 import { useRouter } from "vue-router";
 
 const userStore = useUserStore();
-const router = useRouter()
+const router = useRouter();
 
 const signupUser = async (newUser: createUSer) => {
   newUser.passwordConfirm = newUser.password;

@@ -158,16 +158,15 @@ const loginUserLoc = async () => {
   if(validateFormLogin(userLoginLoc.value)){
     isLogin.value = true;
     try {
-      loginUser(userLoginLoc.value);
+      await loginUser(userLoginLoc.value);
     } catch (error) {
       isLogin.value = false; 
       console.error('Erreur lors de la connexion', error);
       errorMessage.value = 'Erreur de connexion. Veuillez réessayer.'; 
-    } finally {
-      isLogin.value = false; 
     }
   }else{
     errorMessage.value = 'Veuillez remplir touts les champs.'; 
   }
 };
+
 </script>
