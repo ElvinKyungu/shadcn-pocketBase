@@ -9,9 +9,12 @@ export function isAuthenticated(
 ): void {
   const userStore = useUserStore();
   userStore.restoreUserData();
+  console.log('Route de départ:', from);
+  console.log('Route d\'arrivée:', to);
+
   if (userStore.token) {
     next();
-  }else {
+  } else {
     next('/');
   }
 }

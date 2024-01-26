@@ -24,7 +24,6 @@ const loginUserWithGoogle = async (newUser: creatUserWithGoogle) => {
 
     const result = await pb.collection('users').create(newUser);
     console.log(result);
-    userStore.setUserData({ userID: result.id, name: result.name, token: result.token });
     router.push('/user')
   } catch (error) {
     console.error('Erreur lors de la connexion', error);
@@ -35,17 +34,10 @@ const loginUserWithGoogle = async (newUser: creatUserWithGoogle) => {
 const getUserDataWithGoogle = async () => {
   try{
     const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
-    console.log(authData.meta);
     if (authData && authData.meta) {
-      const passwordForGoogleUser = '';
-      await signupUser({
-        username: authData.meta.username,
-        name: authData.meta.name,
-        email: authData.meta.email,
-        password: passwordForGoogleUser,
-        passwordConfirm: passwordForGoogleUser,
-        avatar: authData.meta.avatar
-      });
+      console.log(authData.meta);
+      userStore.setUserData({ userID: authData.meta.id, name: authData.meta.name, token: authData.meta.token });
+      router.push('/user')
     }
   }catch(error){
     console.error('Erreur lors de la connexion', error);

@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import TaskHeaderContent from './TaskHeaderContent.vue';
-import Table from './Table.vue';
+//import TaskHeaderContent from './TaskHeaderContent.vue';
+//import Table from './Table.vue';
 import TaskFooterContent from './TaskFooterContent.vue';
 import { pb } from '@/pocketbase/pocket';
 import { ref, onMounted } from 'vue';

@@ -7,7 +7,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import TaskContent from "@/components/tasks/TaskContent.vue"
-import Form from "@/components/tasks/Form.vue"
+//import TaskContent from "@/components/tasks/TaskContent.vue"
+//import Form from "@/components/tasks/Form.vue"
 
 </script>

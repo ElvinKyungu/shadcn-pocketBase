@@ -92,6 +92,9 @@ import {pb} from '@/pocketbase/pocket';
 import { ref } from 'vue';
 import { userLogin } from '@/types/user';
 import { getUserDataWithGoogle } from '@/lib/auth';
+//import { useRouter } from "vue-router";
+
+//const router = useRouter()
 
 const userLoginLoc = ref<userLogin>({
   email: '',
@@ -121,7 +124,6 @@ const loginWithLinkedin = async ()=>{
 const loginWithGoogle = async () =>{
   try{
     getUserDataWithGoogle()
-    //router.push('/user')  
   }catch(error){
     isLogin.value = false; 
     console.error('Erreur lors de la connexion', error);
@@ -134,6 +136,7 @@ const loginWithGoogle = async () =>{
 const loginUserLoc = async () => {
   try {
     isLogin.value = true;
+    
   } catch (error) {
     isLogin.value = false; 
     console.error('Erreur lors de la connexion', error);

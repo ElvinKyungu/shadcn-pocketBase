@@ -114,12 +114,12 @@ interface TableProps {
   tasks: Ref<Task[]>;
 }
 const props = defineProps<TableProps>();
-const isLoading = ref<boolean>(!props.tasks || props.tasks.length === 0);
+const isLoading = ref<boolean>(!props.tasks || props.tasks.value.length === 0);
   const showModal: Record<string, boolean> = {};
 
 
 watch(() => props.tasks, () => {
-  isLoading.value = !props.tasks || props.tasks.length === 0;
+  isLoading.value = !props.tasks || props.tasks.value.length === 0;
 }, { immediate: true });
 
 const toggleModal = (taskId: string) => {

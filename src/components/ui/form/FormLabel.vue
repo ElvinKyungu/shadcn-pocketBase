@@ -8,6 +8,7 @@ defineOptions({
   inheritAttrs: false,
 })
 const props = defineProps<LabelProps>()
+console.log(props);
 
 const { error, formItemId } = useFormField()
 const { class: className, ...rest } = useAttrs()

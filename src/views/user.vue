@@ -19,7 +19,7 @@ import LateralIndex from '@/components/dashboard/lateral/LateralIndex.vue';
 
 const userStore = useUserStore();
 console.log(userStore)
-const selectedSidebarItemId = ref(null);
+const selectedSidebarItemId = ref('');
 
 const handleSidebarItemClicked = (itemId: string) => {
   console.log(`Sidebar item clicked with id: ${itemId}`);

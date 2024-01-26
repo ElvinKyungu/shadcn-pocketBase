@@ -114,7 +114,6 @@
                       Ajouter un collaborateur
                     </label>
                     <input 
-                      v-model="newTask.collaborator"
                       type="text" 
                       name="name" 
                       id="name" 
@@ -146,7 +145,7 @@
                         X
                       </a>
                     </div>
-                    <ul v-if="showSuggestions" class="border-1 border mt-3 p-4 rounded-xl">
+                    <!-- <ul v-if="showSuggestions" class="border-1 border mt-3 p-4 rounded-xl">
                       <li 
                         v-for="user in filteredUsers" 
                         :key="user.id" 
@@ -156,7 +155,7 @@
                         {{ user.name }}
                       </li>
                       <li v-if="filteredUsers.length === 0">Aucun utilisateur trouvé</li>
-                    </ul>
+                    </ul> -->
                   </div>
                   <div class="col-span-2">
                     <label 
@@ -205,11 +204,11 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import {pb} from '@/pocketbase/pocket';
 import {
   getAllUsers, 
-  addNewTask, 
-  showSuggestions, 
-  filteredUsers, 
-  handleInputChange, 
-  selectUser, 
+  //addNewTask, 
+  //showSuggestions, 
+  //filteredUsers, 
+  //handleInputChange, 
+  //selectUser, 
   clearSelectedUsers
 }  from '@/lib/addTask';
 import {
